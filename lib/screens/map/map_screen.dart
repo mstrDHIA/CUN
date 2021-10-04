@@ -1,16 +1,47 @@
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:grocery_app/controllers/map_controller.dart';
 class MapScreen extends StatelessWidget{
     static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
+    target: LatLng(36.8471779, 10.2039552),
     zoom: 14.4746,
   );
   @override
   Widget build(BuildContext context) {
+            final MapController mapcontrol = Get.put(MapController());
+
    
- return Center(child: Text("This is a map"));
-// GoogleMap(initialCameraPosition: _kGooglePlex);
+ return 
+    Stack(
+        children:[ GoogleMap( 
+          
+          onMapCreated: mapcontrol.onMapCreate,
+        
+        initialCameraPosition: _kGooglePlex,
+          myLocationEnabled: true,
+          myLocationButtonEnabled: false,
+          zoomControlsEnabled: true,
+          zoomGesturesEnabled: true,
+          rotateGesturesEnabled: true,
+          scrollGesturesEnabled: true,
+
+
+      ),
+      Positioned(
+        bottom: 25,
+        right: 20,
+        child: FloatingActionButton(
+          onPressed: (){
+            //  mapcontrol.currentLocation();
+          },
+          child: Icon(Icons.my_location),
+        )
+        )
+        ]
+    );
+ 
     // TODO: implement build
     throw UnimplementedError();
   }

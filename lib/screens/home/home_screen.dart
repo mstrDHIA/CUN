@@ -30,11 +30,12 @@ class HomeScreen extends StatelessWidget {
             child: Center(
               child: Column(
                 children: [
-                  SizedBox(
-                    height: 15,
-                  ),
+                  // SizedBox(
+                  //   height: 15,
+                  // ),
         
-                  padded(ImageSlide(homecontrol)),
+                 // padded(ImageSlide(homecontrol)),
+                 ImageSlide(homecontrol),
                   SizedBox(
                     height: 25,
                   ),

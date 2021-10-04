@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>205595249661-kmoa91hu1r6gb07nupkg8c7n7e90mi84.apps.googleusercontent.com</string>
+	<string>1032227141579-phpmd1mtqe1d5aemp5f9stp8608cgdbt.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.205595249661-kmoa91hu1r6gb07nupkg8c7n7e90mi84</string>
+	<string>com.googleusercontent.apps.1032227141579-phpmd1mtqe1d5aemp5f9stp8608cgdbt</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBB0VYnfsObQao_sRWRQcO9UL0p00QVens</string>
+	<string>AIzaSyDd3mREfIg9flxJAbgalNPLcWCRNV77jYI</string>
 	<key>GCM_SENDER_ID</key>
-	<string>205595249661</string>
+	<string>1032227141579</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.example.groceryApp</string>
 	<key>PROJECT_ID</key>
-	<string>test2-5e00b</string>
+	<string>cun-app</string>
 	<key>STORAGE_BUCKET</key>
-	<string>test2-5e00b.appspot.com</string>
+	<string>cun-app.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:205595249661:ios:6c71a605d31da16f8a2794</string>
-	<key>DATABASE_URL</key>
-	<string>https://test2-5e00b.firebaseio.com</string>
+	<string>1:1032227141579:ios:4fe74e37db65bdd8daa84e</string>
 </dict>
 </plist>

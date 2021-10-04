@@ -5,6 +5,7 @@ import 'package:grocery_app/controllers/user_control.dart';
 import 'package:grocery_app/screens/dashboard/dashboard_screen.dart';
 import 'package:grocery_app/screens/home/home_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:grocery_app/styles/colors.dart';
 const users = const {
   'dribbble@gmail.com': '12345',
   'hunter@gmail.com': 'hunter',
@@ -49,7 +50,7 @@ class LoginScreen extends StatelessWidget {
             logo: "assets/images/cun_logo.png",
             logoTag: "CUN",
             theme: LoginTheme(
-              primaryColor: Colors.green
+              primaryColor: AppColors.primaryColor
             ),
         title: 'CUN',
         loginProviders: [

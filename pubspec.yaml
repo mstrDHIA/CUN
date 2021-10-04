@@ -24,6 +24,8 @@ dependencies:
   font_awesome_flutter: ^9.1.0
   image_picker: ^0.8.4+2
   firebase_core: ^1.7.0
+  location: ^4.3.0
+
   google_sign_in: ^5.1.1
   cloud_firestore: ^2.5.3
   firebase_storage: ^10.0.4

@@ -48,7 +48,7 @@ Future<void> onTimerFinished(context,HomeController control)  {
     
     Navigator.of(context).pushReplacement(new MaterialPageRoute(
       builder: (BuildContext context) {
-        return TestScreen();
+        return LoginScreen();
       },
     ));
   }

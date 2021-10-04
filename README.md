@@ -28,12 +28,6 @@ Flutter Grocery App UI
 
 -------------  
 
-Github access Token :
-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
-
-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
-
-
 ## Screens  
 - Splash Screen  
 - Welcome Screen  

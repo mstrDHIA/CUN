@@ -279,6 +279,9 @@ Widget CategoryStore(HomeController control,Category category){
         items: images,
 
          options: CarouselOptions(
+            viewportFraction: 1,
+
+           aspectRatio: 2,
            initialPage: 0,
            autoPlay: true,
            autoPlayAnimationDuration: Duration(seconds: 1),
