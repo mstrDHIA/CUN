@@ -19,7 +19,7 @@ dependencies:
   dio: ^4.0.0
   carousel_slider: ^4.0.0
   google_maps_flutter: ^2.0.10
-  #geolocator: ^7.6.2
+  geolocator: ^7.6.2
   flutter_login: ^2.2.1
   font_awesome_flutter: ^9.1.0
   image_picker: ^0.8.4+2

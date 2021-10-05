@@ -3,43 +3,68 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:grocery_app/controllers/map_controller.dart';
+import 'package:grocery_app/controllers/home_controller.dart';
+import 'package:grocery_app/widgets/map_widgets.dart';
 class MapScreen extends StatelessWidget{
+    final TextEditingController searchcontrol=TextEditingController();
     static final CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(36.8471779, 10.2039552),
     zoom: 14.4746,
   );
+    GoogleMapController control;
+
   @override
   Widget build(BuildContext context) {
             final MapController mapcontrol = Get.put(MapController());
-
-   
+            final HomeController homecontrol = Get.put(HomeController());
+mapcontrol.getMarkers(context);
+mapcontrol.filterVisible=true;
+   mapcontrol.displayFilter(homecontrol);
  return 
-    Stack(
-        children:[ GoogleMap( 
+    GetBuilder<MapController>(
+          builder: ( controller) { 
+            return Stack(
+          children:[ GoogleMap( 
+            
+            onMapCreated: (GoogleMapController c){
+              control = c;
+            },
           
-          onMapCreated: mapcontrol.onMapCreate,
-        
-        initialCameraPosition: _kGooglePlex,
-          myLocationEnabled: true,
-          myLocationButtonEnabled: false,
-          zoomControlsEnabled: true,
-          zoomGesturesEnabled: true,
-          rotateGesturesEnabled: true,
-          scrollGesturesEnabled: true,
+          initialCameraPosition: _kGooglePlex,
+            myLocationEnabled: true,
+            myLocationButtonEnabled: true,
+            zoomControlsEnabled: true,
+            zoomGesturesEnabled: true,
+            rotateGesturesEnabled: true,
+            scrollGesturesEnabled: true,
+            markers: mapcontrol.markers,
+           
+            onTap: (argument) {
+              mapcontrol.card.clear();
+              mapcontrol.card.add(Container());
+              mapcontrol.update();
+            },
 
-
-      ),
-      Positioned(
-        bottom: 25,
-        right: 20,
-        child: FloatingActionButton(
-          onPressed: (){
-            //  mapcontrol.currentLocation();
-          },
-          child: Icon(Icons.my_location),
-        )
-        )
-        ]
+        ),
+        Positioned(
+          bottom: 25,
+          left: 75,
+          child:  mapcontrol.card[0]
+          ),
+          Positioned(
+            top: 15,
+            left: 25,
+            child: SearchBarWidget(homecontrol,mapcontrol,searchcontrol, context)),
+           
+            Positioned(
+              right: 27,
+              top: 100,
+              child: mapcontrol.filterCard[0]
+              ),
+          ]
+      );
+           },
+          
     );
  
     // TODO: implement build
