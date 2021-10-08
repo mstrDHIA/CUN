@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:grocery_app/models/Category.dart';
+import 'package:grocery_app/screens/intro/intro_screen.dart';
 import 'package:grocery_app/screens/test_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +49,7 @@ Future<void> onTimerFinished(context,HomeController control)  {
     
     Navigator.of(context).pushReplacement(new MaterialPageRoute(
       builder: (BuildContext context) {
-        return LoginScreen();
+        return IntroScreen();
       },
     ));
   }

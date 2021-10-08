@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:grocery_app/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:grocery_app/models/Category.dart';
+import 'package:grocery_app/models/store.dart';
 import 'package:grocery_app/widgets/map_widgets.dart';
 
 import 'package:get/get.dart';
@@ -14,7 +16,13 @@ List<Widget> card=[Container()];
 final List<Widget> filterCard=[Container()]; 
  bool filterVisible=false;
 
-void displayFilter(HomeController homecontrol){
+
+
+// void filter(){
+//   Set filtermakers
+// }
+
+void displayFilter(HomeController homecontrol,context,MapController mapcontrol){
 
 
 print("aaaaaa");
@@ -22,22 +30,89 @@ print("aaaaaa");
     filterCard.clear();
 
     if(!filterVisible){
-      filterCard.add(FilterStores(homecontrol));
+      filterCard.add(FilterStores(homecontrol,context,mapcontrol));
       filterVisible=true;
     }
-        if(filterVisible){
+        else{
 
       filterCard.add(Container());
                       filterVisible=false;
 
     }
 
-    
     update();
   
 }
 
+getfilteredMarkers(context,Category cat){
+
+  if(cat.name=="all"){
+    getMarkers(context);
+  }
+  else{
+    final HomeController homecontrol = Get.put(HomeController());
+              markers.clear();
+print(markers.length);
+        for (var store in homecontrol.stores){
+          if(store.category.name==cat.name){
+            markers.add(Marker(
+                          icon: BitmapDescriptor.defaultMarker,
+            infoWindow: InfoWindow(
+              title: store.name,
+              
+              ),
+
+            markerId: MarkerId(store.name),
+            position: LatLng(store.lat,store.long),
+            
+            onTap: () {
+              if(card.length>0){
+                card.clear();
+                card.add(StoreMapCard(context,
+                  store,
+                ),);
+              }
+              update();
+            },
+            ));
+          }
+          
+        }
+  }
+  
+        update();
+}
+
+void getSearchedMarkers(context,List<Store> stores){
+markers.clear();
+        for (var store in stores){
+          markers.add(Marker(
+                          icon: BitmapDescriptor.defaultMarker,
+            infoWindow: InfoWindow(
+              title: store.name,
+              
+              ),
+
+            markerId: MarkerId(store.name),
+            position: LatLng(store.lat,store.long),
+            
+            onTap: () {
+              if(card.length>0){
+                card.clear();
+                card.add(StoreMapCard(context,
+                  store,
+                ),);
+              }
+              update();
+            },
+            ));
+        }
+        update();
+}
+
+
 void getMarkers(context){
+  markers.clear();
   final HomeController homecontrol = Get.put(HomeController());
         for (var store in homecontrol.stores){
           markers.add(Marker(

@@ -6,8 +6,10 @@ import 'package:get/get.dart';
 import 'package:grocery_app/common_widgets/app_button.dart';
 import 'package:grocery_app/common_widgets/app_text.dart';
 import 'package:grocery_app/controllers/home_controller.dart';
+import 'package:grocery_app/controllers/store_controller.dart';
 import 'package:grocery_app/models/grocery_item.dart';
 import 'package:grocery_app/models/store.dart';
+import 'package:grocery_app/screens/stores/store_edit.dart';
 import 'package:grocery_app/styles/colors.dart';
 import 'package:grocery_app/widgets/item_counter_widget.dart';
 import 'package:grocery_app/widgets/store_details_widgets.dart';
@@ -21,6 +23,7 @@ class StoreDetailsScreen extends StatelessWidget {
   const StoreDetailsScreen(this.store);
   @override
   Widget build(BuildContext context) {
+    StoreController storecontrol=Get.put(StoreController());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primaryColor,
@@ -35,118 +38,134 @@ class StoreDetailsScreen extends StatelessWidget {
         ],
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              getImageHeaderWidget(),
-              Container(
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(30),
-                        topRight: Radius.circular(30)),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          offset: Offset(0, -3),
-                          blurRadius: 10,
-                          spreadRadius: 2)
-                    ]),
-                child: Column(
-                  children: [
-                    Opacity(
-                        opacity: 0.5,
-                        child: Icon(Icons.horizontal_rule_rounded)),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
+        child: Stack(
+          children: [
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  getImageHeaderWidget(),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(30),
+                            topRight: Radius.circular(30)),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black12,
+                              offset: Offset(0, -3),
+                              blurRadius: 10,
+                              spreadRadius: 2)
+                        ]),
+                    child: Column(
+                      children: [
+                        Opacity(
+                            opacity: 0.5,
+                            child: Icon(Icons.horizontal_rule_rounded)),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
                             children: [
-                              AppText(
-                                  text: "Information:",
-                                  textAlign: TextAlign.left,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 20),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              AppText(
-                                  text: "Description:",
-                                  textAlign: TextAlign.left,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                              store.description),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Type(store),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Address(store),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          OpenDays(store),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          OpenTime(store),
-                          SizedBox(
-                            height: 20,
-                          ),
-                         
-                          Divider(
-                            thickness: 2,
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              AppText(
-                                  text: "Contact:",
-                                  textAlign: TextAlign.left,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 20),
-                            ],
-                          ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  AppText(
+                                      text: "Information:",
+                                      textAlign: TextAlign.left,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 20),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  AppText(
+                                      text: "Description:",
+                                      textAlign: TextAlign.left,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                  store.description),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Type(store),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Address(store),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              OpenDays(store),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              OpenTime(store),
+                              SizedBox(
+                                height: 20,
+                              ),
+                             
+                              Divider(
+                                thickness: 2,
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  AppText(
+                                      text: "Contact:",
+                                      textAlign: TextAlign.left,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 20),
+                                ],
+                              ),
 SizedBox(
-                            height: 20,
+                                height: 20,
+                              ),
+                              Manager(store),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Email(store),
+                              SizedBox(
+                                height: 20,
+                              ),
+                                  Phone(store),
+                              Socials(store),
+                             
+                            ],
                           ),
-                          Manager(store),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Email(store),
-                          SizedBox(
-                            height: 20,
-                          ),
-                              Phone(store),
-                          Socials(store),
-                         
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+                        Positioned(
+                          right: 20,
+                          top:20,
+                          child: FloatingActionButton(
+                            onPressed: (){
+                              
+                              storecontrol.store=store;
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>StoreEditScreen(store)));
+                            },
+                            child: Icon(Icons.edit),)
+                            ,),
+
+          ],
         ),
 
         //   child: Expanded(
@@ -245,6 +264,11 @@ SizedBox(
       padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
       width: double.maxFinite,
       decoration: BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.fill,
+          image: NetworkImage(store.image)
+           
+          ),
         color: Colors.blue,
         // borderRadius: BorderRadius.only(
         //   bottomLeft: Radius.circular(25),
@@ -260,9 +284,12 @@ SizedBox(
             stops: [0.0, 1.0],
             tileMode: TileMode.clamp),
       ),
-      child: Image(
-        image: NetworkImage(store.image),
-      ),
+      // child: Image(
+      //   image: NetworkImage(store.image,
+        
+      //   ),
+      // ),
+      
     );
   }
 

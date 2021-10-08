@@ -7,6 +7,7 @@ import 'package:grocery_app/screens/store_details/store_details_screen.dart';
 import 'package:grocery_app/common_widgets/app_text.dart';
 import 'package:grocery_app/models/store.dart';
 import 'package:grocery_app/styles/colors.dart';
+import 'package:grocery_app/widgets/home_widgets.dart';
 
 
 
@@ -48,18 +49,12 @@ Widget filter_bar(HomeController homeControl){
 
             ),
             onFieldSubmitted: (value){
-              final found =
-      control.stores.firstWhere((element) =>
-          element.name == value,
-          orElse: () {
-            return null;
-  });   
+          final found =
+      control.stores.where((element) =>
+          element.name.toLowerCase().contains(value.toLowerCase()),
+      ).toList();
   if(found!=null){
-              Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) => StoreDetailsScreen(found)),
-    );
+      mapController.getSearchedMarkers(context,found);
   }
     //           Navigator.push(
     //   context,
@@ -108,7 +103,7 @@ Widget filter_bar(HomeController homeControl){
             borderRadius: BorderRadius.circular(20),
           ),
           child: IconButton(icon: Icon(Icons.filter_list),onPressed: (){
-            mapController.displayFilter(control);
+            mapController.displayFilter(control,context,mapController);
             mapController.update();
           },)
         ),
@@ -119,28 +114,61 @@ Widget filter_bar(HomeController homeControl){
   }
 
 
-Widget FilterStores(HomeController homecontrol){
-  
+Widget FilterStores(HomeController homecontrol,context,control){
+              Category all=Category("all","https://firebasestorage.googleapis.com/v0/b/cun-app.appspot.com/o/oil.png?alt=media&token=baa95f1b-b48f-4632-bab8-5b4e3ce380d4","1");
+
   return Container(
+    width: 100,
     decoration: BoxDecoration(
       color: Colors.white
     ),
     child:Column(
       mainAxisSize: MainAxisSize.min,
-      
       children: [
-        Text("______"),
-      for(var cat in homecontrol.categories)
-      CategoryItem(cat),
-    ],)
+                                                      CategoryItem(all,context,control),
+
+        Flexible(
+          fit: FlexFit.loose,
+              child: ListView.builder(
+
+                shrinkWrap: true,
+            
+            itemCount: homecontrol.categories.length,
+            
+            itemBuilder: (context,index){
+            //   onItemClicked(context, value){
+            //  //   filter(store);
+            //  print(value);
+            //   }
+                   return Column(
+                     children: [
+
+                       CategoryItem(homecontrol.categories[index],context,control),
+                     ],
+                   );
+
+          }),
+        ),
+      ],
+    )
+    // child:Column(
+    //     mainAxisSize: MainAxisSize.min,
+        
+    //     children: [
+    // Text("______"),
+    //     for(var cat in homecontrol.categories)
+    //     CategoryItem(cat),
+    //   ],)
   );
 }
 
 
-Widget CategoryItem(Category cat){
+Widget CategoryItem(Category cat,context,MapController control){
   return InkWell(
     onTap: (){
-      print(cat.name);
+      control.getfilteredMarkers(context, cat);
+      //print(cat.name);
+
     },
       child: Container(
         color: Colors.white,
@@ -241,9 +269,9 @@ Widget StoreMapCard(context,Store store){
                 child: AppText(
                   textAlign: TextAlign.center,
                   text: store.opentime.toDate().hour.toString()+":"+
-                  store.opentime.toDate().minute.toString()+"~"+
+                  store.opentime.toDate().minute.toString()+"h ~ "+
                   store.closetime.toDate().hour.toString()+":"+
-                  store.closetime.toDate().minute.toString(),
+                  store.closetime.toDate().minute.toString()+"h",
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                   color: AppColors.primaryColor,

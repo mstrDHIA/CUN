@@ -8,6 +8,7 @@ import 'package:grocery_app/models/Category.dart';
 import 'package:grocery_app/models/grocery_item.dart';
 import 'package:grocery_app/models/store.dart';
 import 'package:grocery_app/screens/store_details/store_details_screen.dart';
+import 'package:grocery_app/screens/stores/explore_screen.dart';
 import 'package:grocery_app/styles/colors.dart';
 import 'grocery_item_card_widget.dart';
 Widget padded(Widget widget) {
@@ -214,16 +215,14 @@ Widget CategoryStore(HomeController control,Category category){
             ),
             onFieldSubmitted: (value){
               final found =
-      control.stores.firstWhere((element) =>
-          element.name == value,
-          orElse: () {
-            return null;
-  });   
+      control.stores.where((element) =>
+          element.name.toLowerCase().contains(value.toLowerCase()),
+      ).toList();
   if(found!=null){
               Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => StoreDetailsScreen(found)),
+          builder: (context) => ExploreScreen(foundStores: found,)),
     );
   }
     //           Navigator.push(

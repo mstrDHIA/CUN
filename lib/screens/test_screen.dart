@@ -20,16 +20,16 @@ class TestScreen extends StatelessWidget{
         body: Center(
       child: FloatingActionButton(onPressed: () async { 
         print("blabla");
-        var newUser=await UserController.signInWithGoogle(context: context);
+            usercontrol.facebookSignin(context);
                 print("blabla");
 
-        if(newUser!=null){
-          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context){
-            return HomeScreen();
-          }));
-        }
+        // if(newUser!=null){
+        //   Navigator.push(context, MaterialPageRoute(builder: (BuildContext context){
+        //     return HomeScreen();
+        //   }));
+        // }
        },
-      child: Icon(FontAwesomeIcons.google),
+      child: Icon(FontAwesomeIcons.facebookF),
       ),
     ),
     ),

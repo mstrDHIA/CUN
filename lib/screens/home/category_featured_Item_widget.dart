@@ -31,6 +31,14 @@ class CategoryFeaturedCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final HomeController homecontrol = Get.put(HomeController());
         List<Category> c = homecontrol.categories;
+        //if(c.isNotEmpty){
+          //c.clear();
+          // print(homecontrol.categories.length);
+          // print(c.length);
+          if(categories.isNotEmpty){
+            categories.clear();
+          }
+       // }
         for(int i=0;i<c.length;i++){
           Color color=Colors.primaries[Random().nextInt(Colors.primaries.length)];
           categories.add([c[i].name,color.withOpacity(0.25),c[i].image]);

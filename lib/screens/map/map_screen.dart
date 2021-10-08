@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:grocery_app/controllers/map_controller.dart';
@@ -19,7 +20,7 @@ class MapScreen extends StatelessWidget{
             final HomeController homecontrol = Get.put(HomeController());
 mapcontrol.getMarkers(context);
 mapcontrol.filterVisible=true;
-   mapcontrol.displayFilter(homecontrol);
+   mapcontrol.displayFilter(homecontrol,context,mapcontrol);
  return 
     GetBuilder<MapController>(
           builder: ( controller) { 
@@ -57,10 +58,10 @@ mapcontrol.filterVisible=true;
             child: SearchBarWidget(homecontrol,mapcontrol,searchcontrol, context)),
            
             Positioned(
-              right: 27,
+              right: 15,
               top: 100,
-              child: mapcontrol.filterCard[0]
-              ),
+              child: mapcontrol.filterCard[0],
+            ),
           ]
       );
            },
