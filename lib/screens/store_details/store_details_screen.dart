@@ -7,6 +7,7 @@ import 'package:grocery_app/common_widgets/app_button.dart';
 import 'package:grocery_app/common_widgets/app_text.dart';
 import 'package:grocery_app/controllers/home_controller.dart';
 import 'package:grocery_app/controllers/store_controller.dart';
+import 'package:grocery_app/controllers/user_control.dart';
 import 'package:grocery_app/models/grocery_item.dart';
 import 'package:grocery_app/models/store.dart';
 import 'package:grocery_app/screens/stores/store_edit.dart';
@@ -23,9 +24,42 @@ class StoreDetailsScreen extends StatelessWidget {
   const StoreDetailsScreen(this.store);
   @override
   Widget build(BuildContext context) {
+    Widget editwidget;
+    PreferredSizeWidget appbar;
+    Widget bottombar;
     StoreController storecontrol=Get.put(StoreController());
-    return Scaffold(
-      appBar: AppBar(
+        UserController usercontrol=Get.put(UserController());
+
+    if(UserController.isOwner){
+      bottombar=SizedBox();
+      appbar=PreferredSize(preferredSize: Size.fromHeight(0),
+      child: SizedBox(),);
+      editwidget=Positioned(
+                          right: 20,
+                          top:20,
+                          child: FloatingActionButton(
+                            onPressed: (){
+                              
+                              storecontrol.store=store;
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>StoreEditScreen(store:store)));
+                            },
+                            child: Icon(Icons.edit),)
+                            ,);
+    }
+    else{
+      bottombar=BottomAppBar(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(onPressed: () {}, child: Text("Send Message")),
+              ElevatedButton(onPressed: () {}, child: Text("Show Location"))
+            ],
+          ),
+        ),
+      );
+      appbar=AppBar(
         backgroundColor: AppColors.primaryColor,
         title: Text("CUN"),
         actions: [
@@ -36,7 +70,11 @@ class StoreDetailsScreen extends StatelessWidget {
                 color: Color(0xfffafafa),
               ))
         ],
-      ),
+      );
+      editwidget=SizedBox();
+    }
+    return Scaffold(
+      appBar: appbar,
       body: SafeArea(
         child: Stack(
           children: [
@@ -153,17 +191,8 @@ SizedBox(
                 ],
               ),
             ),
-                        Positioned(
-                          right: 20,
-                          top:20,
-                          child: FloatingActionButton(
-                            onPressed: (){
-                              
-                              storecontrol.store=store;
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>StoreEditScreen(store)));
-                            },
-                            child: Icon(Icons.edit),)
-                            ,),
+            editwidget
+                        
 
           ],
         ),
@@ -243,18 +272,7 @@ SizedBox(
         //     ),
         //   ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton(onPressed: () {}, child: Text("Send Message")),
-              ElevatedButton(onPressed: () {}, child: Text("Show Location"))
-            ],
-          ),
-        ),
-      ),
+      bottomNavigationBar: bottombar
     );
   }
 

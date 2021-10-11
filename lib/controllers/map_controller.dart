@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:geocoding/geocoding.dart';
 import 'package:grocery_app/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:grocery_app/models/Category.dart';
@@ -11,7 +12,7 @@ import 'package:geolocator/geolocator.dart';
 //import 'package:location/location.dart';
 class MapController extends GetxController {
 final Completer<GoogleMapController> gcontrol = Completer();
-        final Set<Marker> markers=Set();
+final Set<Marker> markers=Set();
 List<Widget> card=[Container()]; 
 final List<Widget> filterCard=[Container()]; 
  bool filterVisible=false;
@@ -81,6 +82,41 @@ print(markers.length);
   }
   
         update();
+}
+
+
+getTapped(LatLng tapped,TextEditingController holder) async {
+  Geolocator geo=Geolocator();
+  markers.clear();
+  markers.add(Marker(
+    markerId: MarkerId("1"),
+    position: tapped
+
+    ));
+      List<Placemark> placemarks = await placemarkFromCoordinates(tapped.latitude,tapped.longitude);
+      holder.text=placemarks[0].name+", "+placemarks[0].administrativeArea;
+      print(placemarks[0]);
+
+    
+    // for(var p in placemarks){
+    //   print(p);
+    // }
+    update();
+}
+
+
+addInitialMarker(TextEditingController holder,Store store) async {
+  markers.add(
+    Marker(
+      markerId: MarkerId("1"),
+      position: LatLng(store.lat, store.long)
+    
+    )
+  );
+  List<Placemark> placemarks = await placemarkFromCoordinates(36.8471779,10.2039552);
+      holder.text=placemarks[0].name+", "+placemarks[0].administrativeArea;
+ update();
+ // markers=
 }
 
 void getSearchedMarkers(context,List<Store> stores){

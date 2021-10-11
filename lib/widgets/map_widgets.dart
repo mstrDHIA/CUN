@@ -15,6 +15,60 @@ Widget filter_bar(HomeController homeControl){
 
 }
 
+
+Widget AddressHolder(TextEditingController holder){
+  return Container(
+          padding: EdgeInsets.all(16),
+          width: 380,
+          height: 70,
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black12,
+                blurRadius:20,
+                spreadRadius:2,
+                offset:Offset(2,3)
+              )
+            ],
+            color: Color(0xFFFFFFFF),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: TextFormField(
+            controller: holder,
+            enabled: false,
+            decoration: InputDecoration(
+              suffixIcon: Icon(Icons.location_on),
+              
+              
+              //hintText: "Search Store",
+              border:InputBorder.none,
+              hintStyle: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w900
+              )
+
+            ),
+          ),
+          // child: TextFormField(
+            
+          //  // autofillHints: control.stores.,
+          //   decoration: InputDecoration(
+          //     suffixIcon: Icon(Icons.search),
+              
+          //     hintText: "Search Store",
+          //     border:InputBorder.none,
+          //     hintStyle: TextStyle(
+          //       fontSize: 18,
+          //       fontWeight: FontWeight.w900
+          //     )
+
+          //   ),
+         
+          // )
+          
+        );
+}
+
   Widget SearchBarWidget(HomeController control,MapController mapController,TextEditingController searchcontrol,context){
     return Row(
       children: [

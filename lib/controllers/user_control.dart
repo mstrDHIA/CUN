@@ -4,16 +4,27 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:grocery_app/models/Category.dart';
+import 'package:grocery_app/models/store.dart';
+import 'package:grocery_app/screens/account/account_screen.dart';
+import 'package:grocery_app/screens/dashboard/navigator_item.dart';
+import 'package:grocery_app/screens/dashboard/owner_dashboard_screen.dart';
 import 'package:grocery_app/screens/home/home_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:grocery_app/screens/dashboard/dashboard_screen.dart';
 import 'package:grocery_app/screens/login_success_screen.dart';
+import 'package:grocery_app/screens/map/map_screen.dart';
+import 'package:grocery_app/screens/promotion/add_promotion.dart';
+import 'package:grocery_app/screens/promotions_screen.dart';
+import 'package:grocery_app/screens/store_details/store_details_screen.dart';
+import 'package:grocery_app/screens/test_screen.dart';
 
 class UserController extends GetxController{
   
 
-
+Store store;
+static bool isOwner;
 
 businessLogin(TextEditingController emailcontrol,TextEditingController psdcontrol,context) async {
 if(emailcontrol.text.isEmpty|psdcontrol.text.isEmpty){
@@ -23,6 +34,7 @@ if(emailcontrol.text.isEmpty|psdcontrol.text.isEmpty){
   ScaffoldMessenger.of(context).showSnackBar(snackBar,
 
   );
+
 
   print("You can't leave required fields empty");
 }
@@ -47,8 +59,57 @@ else{
         querySnapshot.docs.forEach((element) {print(element.data());
             //print(element['password']);
       if(element["password"]==psdcontrol.text){
+        //store=getUserStore();
         print("login success");
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginSuccessScreen()));
+        print(element.id);
+     //   store=element["store"];
+        print(element["store"]);
+           element["store"].get().then((DocumentSnapshot ds) {
+          //String id = ds.id;
+          print(ds.data());
+          print(ds["name"]);
+            ds["category"].get().then((DocumentSnapshot subds) {
+              
+              Category c=Category(
+                subds["name"],
+                subds["image"],
+                subds.id
+              );
+              
+               Store s = Store(
+          description: ds["description"],
+              manager: ds["manager"],
+              phone: ds["phone"],
+              opentime: ds["open_time"],
+              long: ds["long"],
+              closetime: ds["close_time"],
+              zipCode: ds["zip_code"],
+              available:ds["open_days"],
+              lat: ds["lat"],
+              address: ds["address"],
+              image:ds["image"],
+              city: ds["city"],
+              images: ds["images"],
+              social: ds["Social"],
+              country: ds["country"],
+              email: ds["email"],
+              name: ds["name"],
+              category: c
+              );
+              store=s;
+              isOwner=true;
+              update();
+
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>OwnerDashboardScreen(store: store,)));
+
+            });
+          
+         // ds<dynamic> storedata=d
+          
+           });
+        //DocumentReference dr = element.data().values.tods()[4];
+        //print(dr);
+
       }
       else{
           final snackBar = SnackBar(
@@ -63,6 +124,11 @@ else{
       }
     });
 }
+}
+
+
+getUserStore(){
+
 }
 
  static Future<User> signInWithGoogle({ BuildContext context}) async {
@@ -140,6 +206,7 @@ if (result.status == LoginStatus.success) {
           // .catchError((error) => print("Failed to add user: $error"));
     //print(accessToken.);
     print("login success");
+    isOwner=false;
     Navigator.push(context, MaterialPageRoute(builder:   (context) => DashboardScreen()),);
 } else {
     print(result.status);
@@ -153,7 +220,7 @@ if (result.status == LoginStatus.success) {
 //   // FirebaseAuth auth = FirebaseAuth.instance;
 //   //   FirebaseAuth.instance
 //   // .userChanges()
-//   // .listen((User user) {
+//   // .dsen((User user) {
 //   //   if (user == null) {
 //   //     print('User is currently signed out!');
 //   //   } else {

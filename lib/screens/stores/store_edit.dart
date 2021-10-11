@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:grocery_app/common_widgets/app_button.dart';
 import 'package:grocery_app/common_widgets/app_text.dart';
 import 'package:grocery_app/controllers/home_controller.dart';
@@ -19,11 +20,11 @@ import 'package:image_picker/image_picker.dart';
 //import 'favourite_toggle_icon_widget.dart';
 
 class StoreEditScreen extends StatelessWidget {
-
+  final LatLng chosenPosition;
   final int amount = 1;
   final Store store;
 
-   StoreEditScreen(this.store);
+   StoreEditScreen({this.store,this.chosenPosition});
 
 
   @override
@@ -31,12 +32,21 @@ class StoreEditScreen extends StatelessWidget {
   Widget build(BuildContext context) {
           final TextEditingController closecontrol=TextEditingController(text: store.closetime.toDate().hour.toString()+":"+store.closetime.toDate().minute.toString());
           final TextEditingController opencontrol=TextEditingController(text: store.opentime.toDate().hour.toString()+":"+store.opentime.toDate().minute.toString());
+          final TextEditingController managercontrol=TextEditingController(text: store.manager);
+          final TextEditingController emailcontrol=TextEditingController(text: store.email);
+          final TextEditingController phonecontrol=TextEditingController(text: store.phone.toString());
 
       final TextEditingController desccontrol=TextEditingController(text: store.description);
         final HomeController homecontrol = Get.put(HomeController());
         final StoreController storecontrol = Get.put(StoreController());
+    List<TextEditingController> socialcontrol=List();
+    for(var s in store.social){
+      List<String> socialval=s.split(":");
+      TextEditingController socialTempControl=TextEditingController(text:socialval[1]);
+      socialcontrol.add(socialTempControl);
+    }
     storecontrol.debutEdit();
-
+    
     return GetBuilder<StoreController>(
       
           builder: (GetxController controller) { 
@@ -116,7 +126,7 @@ return Scaffold(
                                 SizedBox(
                                   height: 20,
                                 ),
-                                Address(store),
+                                Address(store,context),
                                 SizedBox(
                                   height: 20,
                                 ),
@@ -148,16 +158,16 @@ return Scaffold(
 SizedBox(
                                   height: 20,
                                 ),
-                                Manager(store),
+                                Manager(store,managercontrol),
                                 SizedBox(
                                   height: 20,
                                 ),
-                                Email(store),
+                                Email(store,emailcontrol),
                                 SizedBox(
                                   height: 20,
                                 ),
-                                    Phone(store),
-                                Socials(store),
+                                    Phone(store,phonecontrol),
+                                Socials(store,socialcontrol),
                                
                               ],
                             ),

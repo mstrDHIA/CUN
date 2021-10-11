@@ -13,6 +13,8 @@ class HomeController extends GetxController {
   FirebaseApp app;
   FirebaseFirestore firestore;
 
+  
+
   void FirebaseInitialize() async {
     //List<Category> c=[];
     if(categories.isNotEmpty){
@@ -61,6 +63,7 @@ class HomeController extends GetxController {
      
     });
   }
+
 
 
   getStores(){

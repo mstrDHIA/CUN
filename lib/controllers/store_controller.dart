@@ -8,11 +8,10 @@ import 'package:image_picker/image_picker.dart';
 class StoreController extends GetxController{
 
 Image im;
-String dropval;
+String dropval="Food";
 List<String> days=List();
 List colors=List();
 Store store;
-
 
 
 Future<void> selectTime(BuildContext context,TimeOfDay selectedTime,TextEditingController closecontrol) async {
@@ -36,6 +35,7 @@ if (picked_s != null && picked_s != selectedTime )
 
 changeCategory(String newval){
   dropval=newval;
+  print(dropval);
   update();
 }
 

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:grocery_app/controllers/user_control.dart';
 import 'package:grocery_app/screens/account/account_screen.dart';
 import 'package:grocery_app/screens/map/map_screen.dart';
+import 'package:grocery_app/screens/store_details/store_details_screen.dart';
 import 'package:grocery_app/screens/stores/explore_screen.dart';
 import 'package:grocery_app/screens/home/home_screen.dart';
 import 'package:grocery_app/screens/promotion/add_promotion.dart';
 
 import '../promotions_screen.dart';
+import '../test_screen.dart';
 
 class NavigatorItem {
   final String label;
@@ -15,6 +18,11 @@ class NavigatorItem {
 
   NavigatorItem(this.label, this.iconPath, this.index, this.screen);
 }
+
+
+UserController usercontrol=UserController();
+
+
 
 List<NavigatorItem> navigatorItems = [
     NavigatorItem("Account", Icon(Icons.account_circle), 0, AccountScreen()),

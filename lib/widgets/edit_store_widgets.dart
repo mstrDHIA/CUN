@@ -3,6 +3,7 @@ import 'package:grocery_app/common_widgets/app_text.dart';
 import 'package:grocery_app/controllers/home_controller.dart';
 import 'package:grocery_app/controllers/store_controller.dart';
 import 'package:grocery_app/models/store.dart';
+import 'package:grocery_app/screens/map/choose_from_map.dart';
 import 'package:grocery_app/styles/colors.dart';
 
 Widget InputEdit(TextEditingController control,Store store,int lines){
@@ -20,8 +21,24 @@ Widget InputEdit(TextEditingController control,Store store,int lines){
         );
 }
 
+
+Widget SocialInputEdit(TextEditingController control,int lines){
+  return TextFormField(
+    //initialValue: store.description,
+    maxLines: lines,
+          controller: control,
+          decoration: InputDecoration(
+  focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: AppColors.primaryColor, width: 2.0),
+            ),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.black, width: 2.0),
+            ),          ),
+        );
+}
+
 Widget DropEdit(Store store,StoreController storecontrol,HomeController homecontrol){
- storecontrol.dropval=store.category.name;
+ //storecontrol.dropval=store.category.name;
 List<String> catnames=List();
 homecontrol.categories.forEach((element) { 
   catnames.add(element.name);
@@ -40,6 +57,9 @@ return DropdownButton<String>(
     ),
     onChanged: (String newValue) {
       storecontrol.changeCategory(newValue);
+        print(storecontrol.dropval);
+        storecontrol.update();
+
       //  dropval = newValue;
    //     storecontrol.update();
     },
@@ -128,7 +148,9 @@ Widget TimeInput(StoreController storecontrol,context,TextEditingController clos
         storecontrol.selectTime(context,selectedTime,closecontrol);
       },
           child: AbsorbPointer(
+          
             child: TextFormField(
+              textAlign: TextAlign.start,
               controller: closecontrol,
               decoration: InputDecoration(
                 suffixIcon: Icon(Icons.alarm)
@@ -141,13 +163,29 @@ Widget TimeInput(StoreController storecontrol,context,TextEditingController clos
 }
 
 
-Socials(store){
+
+
+
+Socials(store,List<TextEditingController> socialcontrol){
+  List<Widget> socialwidgets=List();
+  for(int i=0;i<store.social.length;i++){
+    socialwidgets.add(
+      Column(
+        children: [
+                  SizedBox(height: 20,),
+
+          Social(store.social[i],socialcontrol[i]),
+
+        ],
+      )
+      );
+  }
   return Column(children:[
-  for(var social in store.social)
+  for(var social in socialwidgets)
     Column(
       children: [
-        SizedBox(height: 20,),
-            Social(social)
+        //SizedBox(height: 20,),
+           social
 
       ],
     ),
@@ -156,7 +194,7 @@ Socials(store){
 
 }
 
-Widget Social(String social){
+Widget Social(String social,TextEditingController socialcontrol){
   List<String> s=social.split(":");
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -170,13 +208,9 @@ Widget Social(String social){
 
       Row(
         children: [
-         Text(s[1],
-            style: TextStyle(
-           fontSize: 18,
-           color: Colors.black54,
-           fontWeight: FontWeight.w600
-         ),),
-         
+         Container(
+           width:300,
+           child: SocialInputEdit(socialcontrol,1))
         ],
       ),
     ],
@@ -184,7 +218,7 @@ Widget Social(String social){
 }
 
 
-Widget Phone(Store store){
+Widget Phone(Store store,TextEditingController phonecontrol){
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
@@ -197,12 +231,9 @@ Widget Phone(Store store){
 
       Row(
         children: [
-         Text(store.phone.toString(),
-            style: TextStyle(
-           fontSize: 18,
-           color: Colors.black54,
-           fontWeight: FontWeight.w600
-         ),),
+          Container(width: 300,
+           child: InputEdit(phonecontrol, store, 1))
+         
          
         ],
       ),
@@ -212,7 +243,7 @@ Widget Phone(Store store){
 
 
 
-Widget Email(Store store){
+Widget Email(Store store,TextEditingController emailcontrol){
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
@@ -225,12 +256,9 @@ Widget Email(Store store){
 
       Row(
         children: [
-         Text(store.email,
-            style: TextStyle(
-           fontSize: 18,
-           color: Colors.black54,
-           fontWeight: FontWeight.w600
-         ),),
+           Container(width: 300,
+           child: InputEdit(emailcontrol, store, 1))
+         
          
         ],
       ),
@@ -240,7 +268,7 @@ Widget Email(Store store){
 
 
 
-Widget Manager(Store store){
+Widget Manager(Store store,TextEditingController managercontrol,){
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
@@ -252,13 +280,10 @@ Widget Manager(Store store){
           ),
 
       Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
-         Text(store.manager,
-         style: TextStyle(
-           fontSize: 18,
-           color: Colors.black54,
-           fontWeight: FontWeight.w600
-         ),),
+         Container(width: 300,
+           child: InputEdit(managercontrol, store, 1))
          
         ],
       ),
@@ -296,7 +321,7 @@ Widget Type(Store store,StoreController storecontrol,HomeController homecontrol)
 }
 
 
-Widget Address(Store store){
+Widget Address(Store store,context){
   return Column(
     children: [
       Row(
@@ -328,7 +353,9 @@ Widget Address(Store store){
                    ),),
                ),
                SizedBox(width:20),
-                           ElevatedButton(onPressed: (){}, child: Icon(Icons.location_on))
+                           ElevatedButton(onPressed: (){
+                             Navigator.push(context, MaterialPageRoute(builder: (context)=>ChooseFromMapScreen(store: store,)));
+                           }, child: Icon(Icons.location_on))
 
               ],
             ),

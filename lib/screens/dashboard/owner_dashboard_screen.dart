@@ -2,25 +2,46 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:grocery_app/controllers/user_control.dart';
+import 'package:grocery_app/models/store.dart';
+import 'package:grocery_app/screens/promotion/add_promotion.dart';
+import 'package:grocery_app/screens/store_details/store_details_screen.dart';
 import 'package:grocery_app/styles/colors.dart';
 import 'package:grocery_app/widgets/menu_widgets.dart';
 
+import '../promotions_screen.dart';
 import 'navigator_item.dart';
 
-class DashboardScreen extends StatefulWidget {
+class OwnerDashboardScreen extends StatefulWidget {
+  final Store store;
+
+  const OwnerDashboardScreen({Key key, this.store}) : super(key: key);
   @override
-  _DashboardScreenState createState() => _DashboardScreenState();
+  _OwnerDashboardScreenState createState() => _OwnerDashboardScreenState(store);
 }
 
-class _DashboardScreenState extends State<DashboardScreen> {
+class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
+    final Store store;
+
   
-  int currentIndex = 2;
+  int currentIndex = 1;
+
+
+  
+  _OwnerDashboardScreenState(this.store);
   
   //navitems=navigatorItems;
   @override
   Widget build(BuildContext context) {
+   final UserController usercontrol = Get.put(UserController());
+  List<NavigatorItem> ownerNavigatorItems = [
 
-  
+  NavigatorItem("Promotions", Icon(Icons.local_offer), 0, PromotionsScreen()),
+    NavigatorItem("Home", Icon(Icons.home), 1, StoreDetailsScreen(usercontrol.store)),
+
+    NavigatorItem("Contact", Icon(Icons.chat), 2, AddPromotionScreen()),
+
+];
+
     return Scaffold(
       drawer: Drawer(child: SafeArea(
               child: Padding(
@@ -39,7 +60,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         //leading: IconButton(icon:Icon(Icons.menu), onPressed:(){} ),
         title: Text("CUN"),
         actions: [IconButton(onPressed: (){}, icon: Icon(Icons.notifications,color: Colors.white,))],),
-      body: navigatorItems[currentIndex].screen,
+      body: ownerNavigatorItems[currentIndex].screen,
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
@@ -72,7 +93,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             selectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
             unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
             unselectedItemColor: Colors.black,
-            items: navigatorItems.map((e) {
+            items: ownerNavigatorItems.map((e) {
               return getNavigationBarItem(
                   label: e.label, index: e.index, iconPath: e.iconPath);
             }).toList(),
