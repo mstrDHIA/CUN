@@ -24,6 +24,7 @@ class StoreDetailsScreen extends StatelessWidget {
   const StoreDetailsScreen(this.store);
   @override
   Widget build(BuildContext context) {
+    print(store.id);
     Widget editwidget;
     PreferredSizeWidget appbar;
     Widget bottombar;

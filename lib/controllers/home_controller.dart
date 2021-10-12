@@ -70,6 +70,7 @@ class HomeController extends GetxController {
     firestore.collection("Stores").get().then((querySnapshot) {
       querySnapshot.docs.forEach((result) {
         print(result.data());
+        print("heni hne"+result.id);
         List list = result.data().values.toList();
         for(var l in list){
           print(l);
@@ -89,6 +90,7 @@ final found =
   print(found);
     // Category category=getCategory(id);
         Store s = Store(
+          id: result.id,
           description: list[0],
               manager: list[2],
               phone: list[3],
@@ -108,6 +110,7 @@ final found =
               name: list[17],
               category: found
               );
+              print("walit object "+s.id);
               print(s.category.name);
                         stores.add(s);
 

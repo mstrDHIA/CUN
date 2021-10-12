@@ -77,6 +77,7 @@ else{
               );
               
                Store s = Store(
+                 id:ds.id,
           description: ds["description"],
               manager: ds["manager"],
               phone: ds["phone"],

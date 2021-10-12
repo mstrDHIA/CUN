@@ -43,6 +43,7 @@ class Store{
   this.closetime=closetime;
   this.available=available;
   this.description=description;
+  this.id=id;
 
   }
 

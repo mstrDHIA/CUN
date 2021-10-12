@@ -107,7 +107,7 @@ Widget OpenTime(Store store,StoreController storecontrol,context,TextEditingCont
 
           Row(
             children: [
-                         TimeInput(storecontrol,context,opencontrol)
+                         OpenTimeInput(storecontrol,context,opencontrol)
 
              
             ],
@@ -127,7 +127,7 @@ Widget OpenTime(Store store,StoreController storecontrol,context,TextEditingCont
           Row(
             children: [
              
-             TimeInput(storecontrol,context,closecontrol)
+             CloseTimeInput(storecontrol,context,closecontrol)
              
             ],
           ),
@@ -138,14 +138,38 @@ Widget OpenTime(Store store,StoreController storecontrol,context,TextEditingCont
 }
 
 
-Widget TimeInput(StoreController storecontrol,context,TextEditingController closecontrol){
+Widget OpenTimeInput(StoreController storecontrol,context,TextEditingController closecontrol){
   TimeOfDay selectedTime = TimeOfDay.now();
 
   return Container(
     width: 200,
     child: GestureDetector(
       onTap: (){
-        storecontrol.selectTime(context,selectedTime,closecontrol);
+        storecontrol.selectOpenTime(context,selectedTime,closecontrol);
+      },
+          child: AbsorbPointer(
+          
+            child: TextFormField(
+              textAlign: TextAlign.start,
+              controller: closecontrol,
+              decoration: InputDecoration(
+                suffixIcon: Icon(Icons.alarm)
+              ),
+          
+        ),
+      ),
+    ),
+  );
+}
+
+Widget CloseTimeInput(StoreController storecontrol,context,TextEditingController closecontrol){
+  TimeOfDay selectedTime = TimeOfDay.now();
+
+  return Container(
+    width: 200,
+    child: GestureDetector(
+      onTap: (){
+        storecontrol.selectCloseTime(context,selectedTime,closecontrol);
       },
           child: AbsorbPointer(
           
@@ -321,7 +345,7 @@ Widget Type(Store store,StoreController storecontrol,HomeController homecontrol)
 }
 
 
-Widget Address(Store store,context){
+Widget Address(context,StoreController storecontrol){
   return Column(
     children: [
       Row(
@@ -343,7 +367,7 @@ Widget Address(Store store,context){
                constraints: BoxConstraints(
                  maxWidth: 400
                ),
-                 child: Text(store.address,
+                 child: Text(storecontrol.address,
                    textAlign: TextAlign.right,
                    style: TextStyle(
                      
@@ -354,7 +378,7 @@ Widget Address(Store store,context){
                ),
                SizedBox(width:20),
                            ElevatedButton(onPressed: (){
-                             Navigator.push(context, MaterialPageRoute(builder: (context)=>ChooseFromMapScreen(store: store,)));
+                             Navigator.push(context, MaterialPageRoute(builder: (context)=>ChooseFromMapScreen()));
                            }, child: Icon(Icons.location_on))
 
               ],

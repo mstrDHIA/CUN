@@ -5,32 +5,34 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:grocery_app/controllers/map_controller.dart';
 import 'package:grocery_app/controllers/home_controller.dart';
+import 'package:grocery_app/controllers/store_controller.dart';
 import 'package:grocery_app/models/store.dart';
 import 'package:grocery_app/widgets/map_widgets.dart';
 class ChooseFromMapScreen extends StatelessWidget{
 
-    final Store store;
+   
     final TextEditingController searchcontrol=TextEditingController();
     
      GoogleMapController control;
 
-   ChooseFromMapScreen({Key key, this.store}) : super(key: key);
 
   @override
   
   Widget build(BuildContext context) {
-     final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(store.lat, store.long),
-    zoom: 14.4746,
-  );
+     
             final MapController choosemapcontrol = Get.put(MapController());
             final HomeController homecontrol = Get.put(HomeController());
+            final StoreController storecontrol = Get.put(StoreController());
+final CameraPosition _kGooglePlex = CameraPosition(
+    target: storecontrol.pos,
+    zoom: 14.4746,
+  );
 //mapcontrol.getMarkers(context);
 //mapcontrol.filterVisible=true;
   // mapcontrol.displayFilter(homecontrol,context,mapcontrol);
   TextEditingController holder=TextEditingController();
   choosemapcontrol.markers.clear();
-  choosemapcontrol.addInitialMarker(holder,store);
+  choosemapcontrol.addInitialMarker(holder,storecontrol);
  return 
     GetBuilder<MapController>(
           builder: ( controller) { 
@@ -86,6 +88,11 @@ class ChooseFromMapScreen extends StatelessWidget{
             ElevatedButton(
               child: Text("Confirm"),
               onPressed: (){
+
+                   storecontrol.changeAddress(holder.text,choosemapcontrol.markers.first.position);
+                   storecontrol.update();
+                   Navigator.pop(context);
+
                 // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ,)));
               },
             ),

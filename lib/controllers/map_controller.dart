@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:geocoding/geocoding.dart';
 import 'package:grocery_app/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:grocery_app/controllers/store_controller.dart';
 import 'package:grocery_app/models/Category.dart';
 import 'package:grocery_app/models/store.dart';
 import 'package:grocery_app/widgets/map_widgets.dart';
@@ -86,7 +87,7 @@ print(markers.length);
 
 
 getTapped(LatLng tapped,TextEditingController holder) async {
-  Geolocator geo=Geolocator();
+ // Geolocator geo=Geolocator();
   markers.clear();
   markers.add(Marker(
     markerId: MarkerId("1"),
@@ -105,11 +106,11 @@ getTapped(LatLng tapped,TextEditingController holder) async {
 }
 
 
-addInitialMarker(TextEditingController holder,Store store) async {
+addInitialMarker(TextEditingController holder,StoreController storecontrol) async {
   markers.add(
     Marker(
       markerId: MarkerId("1"),
-      position: LatLng(store.lat, store.long)
+      position: storecontrol.pos
     
     )
   );

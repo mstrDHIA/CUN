@@ -23,8 +23,8 @@ class StoreEditScreen extends StatelessWidget {
   final LatLng chosenPosition;
   final int amount = 1;
   final Store store;
-
-   StoreEditScreen({this.store,this.chosenPosition});
+  final String chosenaddress;
+   StoreEditScreen({this.store,this.chosenPosition, this.chosenaddress});
 
 
   @override
@@ -45,6 +45,28 @@ class StoreEditScreen extends StatelessWidget {
       TextEditingController socialTempControl=TextEditingController(text:socialval[1]);
       socialcontrol.add(socialTempControl);
     }
+    storecontrol.store=store;
+    print(store.id);
+        print(store.name);
+
+    String address;
+    LatLng pos;
+    
+    if(storecontrol.address==null){
+      storecontrol.address=store.address;
+      storecontrol.pos=LatLng(store.lat,store.long);
+    }
+    // if(chosenPosition!=null){
+    //   address=storecontrol.address;
+    //   pos=storecontrol.pos;
+    //   // store.address=chosenaddress;
+    //   // storecontrol.pos=chosenPosition;
+    // }
+    // else{
+    //      address=store.address;
+    //  pos=LatLng(store.lat, store.long);
+    // }
+    
     storecontrol.debutEdit();
     
     return GetBuilder<StoreController>(
@@ -126,7 +148,7 @@ return Scaffold(
                                 SizedBox(
                                   height: 20,
                                 ),
-                                Address(store,context),
+                                Address(context,storecontrol),
                                 SizedBox(
                                   height: 20,
                                 ),
@@ -261,8 +283,21 @@ SizedBox(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ElevatedButton(onPressed: () {}, child: Text("Send Message")),
-                ElevatedButton(onPressed: () {}, child: Text("Show Location"))
+                // ElevatedButton(onPressed: () {
+                //   print(storecontrol.address);
+                //   print(address);
+                // }, child: Text("Send Message")),
+                ElevatedButton(onPressed: () {
+                  storecontrol.updateStore(
+                    description: desccontrol.text,
+                    email: emailcontrol.text,
+                    homecontrol: homecontrol,
+                    manager: managercontrol.text,
+                    phone: phonecontrol.text,
+                    social: socialcontrol
+
+                  );
+                }, child: Text("Confirm"))
               ],
             ),
           ),
