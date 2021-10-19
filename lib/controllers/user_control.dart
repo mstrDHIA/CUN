@@ -19,6 +19,7 @@ import 'package:grocery_app/screens/promotion/add_promotion.dart';
 import 'package:grocery_app/screens/promotions_screen.dart';
 import 'package:grocery_app/screens/store_details/store_details_screen.dart';
 import 'package:grocery_app/screens/test_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserController extends GetxController{
   
@@ -208,6 +209,8 @@ if (result.status == LoginStatus.success) {
     //print(accessToken.);
     print("login success");
     isOwner=false;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool("isLogged", true);
     Navigator.push(context, MaterialPageRoute(builder:   (context) => DashboardScreen()),);
 } else {
     print(result.status);

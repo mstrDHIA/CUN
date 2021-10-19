@@ -123,10 +123,10 @@ Widget OpenTime(Store store,StoreController storecontrol,context,TextEditingCont
                 fontSize: 16,
                 fontWeight: FontWeight.w600
               ),
-
+            
           Row(
             children: [
-             
+            
              CloseTimeInput(storecontrol,context,closecontrol)
              
             ],
