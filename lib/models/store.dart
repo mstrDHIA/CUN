@@ -47,5 +47,49 @@ class Store{
 
   }
 
+ Map<String,dynamic> toJson() => {
+ 'long':long,
+    'image':image,
+    'lat':lat,
+    'name':name,
+    'address':address,
+    'country':country,
+    'city':city,
+    'zipCode':zipCode,
+    'category':category,
+    'manager':manager,
+    'phone':phone,
+    'social':social,
+    'email':email,
+    'images':images,
+  'opentime':opentime,
+  'closetime':closetime,
+  'available':available,
+  'description':description,
+  'id':id,
+      };
+
+
+       Store.fromJson(Map<String, dynamic> json)
+      : long=json['long'],
+    image=json['image'],
+    lat=json['lat'],
+    name=json['name'],
+    address=json['address'],
+    country=json['country'],
+    city=json['city'],
+    zipCode=json['zipCode'],
+    category=json['category'],
+    manager=json['manager'],
+    phone=json['phone'],
+    social=json['social'],
+    email=json['email'],
+     images=json['images'],
+  opentime=json['opentime'],
+  closetime=json['closetime'],
+  available=json['available'],
+  description=json['description'],
+  id=json['id'];
+    
   
 }

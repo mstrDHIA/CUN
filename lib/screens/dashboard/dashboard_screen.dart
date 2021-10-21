@@ -28,7 +28,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 child: ListView.builder(
                   itemCount: menu_items.length,
                   itemBuilder: (context, index){
-                  return MenuItem(index);
+                  return MenuItem(index,context);
                 })
               ),
       ),

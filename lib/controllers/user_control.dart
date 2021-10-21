@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -69,7 +71,7 @@ else{
           //String id = ds.id;
           print(ds.data());
           print(ds["name"]);
-            ds["category"].get().then((DocumentSnapshot subds) {
+            ds["category"].get().then((DocumentSnapshot subds) async {
               
               Category c=Category(
                 subds["name"],
@@ -101,7 +103,11 @@ else{
               store=s;
               isOwner=true;
               update();
+                  SharedPreferences prefs = await SharedPreferences.getInstance();
+    // prefs.setBool("isOwnerLogged", true);
 
+    // String storeJson=jsonEncode(store);
+    // prefs.setString('ownerStore', storeJson);
               Navigator.push(context, MaterialPageRoute(builder: (context)=>OwnerDashboardScreen(store: store,)));
 
             });

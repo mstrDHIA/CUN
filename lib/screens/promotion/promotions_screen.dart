@@ -14,12 +14,13 @@ class PromotionsScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
             final PromotionController procontrol = Get.put(PromotionController());
+     if(procontrol.allPro.length>0){procontrol.allPro.clear();}
+      if(procontrol.proms.length>0)procontrol.proms.clear();
             final HomeController homecontrol = Get.put(HomeController());
-      procontrol.allPro.clear();
-      procontrol.proms.clear();
 
-                    procontrol.onlyproms.clear();
-                               procontrol.getPromotions(homecontrol);
+                   if(procontrol.onlyproms.length>0) procontrol.onlyproms.clear();
+                                procontrol.getPromotions(homecontrol).whenComplete(() {
+                                    print("pong"+procontrol.allPro.length.toString());
 
                 procontrol.getOnlyProms(context);
                 print("ping"+procontrol.onlyproms.length.toString());
@@ -28,6 +29,8 @@ class PromotionsScreen extends StatelessWidget{
                                     procontrol.update();
 
                  }
+                                });
+              
                                                   //   procontrol.update();
 
 return GetBuilder<PromotionController>(builder: (GetxController controller){

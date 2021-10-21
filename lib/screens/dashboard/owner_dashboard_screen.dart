@@ -50,7 +50,7 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
                 child: ListView.builder(
                   itemCount: menu_items.length,
                   itemBuilder: (context, index){
-                  return MenuItem(index);
+                  return MenuItem(index,context);
                 })
               ),
       ),

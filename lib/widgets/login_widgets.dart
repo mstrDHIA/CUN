@@ -116,6 +116,38 @@ Widget BusinessOwnerLoginCard(UserController usercontrol,context,TextEditingCont
 }
 
 
+Widget OwnerLoginCard(String type,context){
+  
+  return InkWell(
+    onTap: (){
+      if(type=="Visitor"){
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>VisitorLoginScreen()));
+      }
+      else{
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>BusinessOwnerLoginScreen()));
+
+      }
+    },
+      child: Container(
+      width: 65,
+      height: 65,
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(blurRadius: 20,
+          color: Colors.black38,
+          offset: Offset(2,3),
+          spreadRadius: 2
+          ),
+        ],
+        color:Colors.white,
+        borderRadius: BorderRadius.all(Radius.circular(20))
+      ),
+      child: CardContent(type),
+    ),
+  );
+}
+
+
 Widget LoginCard(String type,context){
   
   return InkWell(
@@ -181,24 +213,25 @@ Widget Input(String hint,TextEditingController control){
 
 Widget CardContent(String type){
   String ch="assets/images/businessman.png";
-
+  double h=50;
   if(type=="Visitor"){
     ch="assets/images/client.png";
+    h=150;
   }
   
   return Center(child: Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       Image.asset(ch,
-      height: 150,),
-      SizedBox(height: 20,),
-      Text(type,
-      style: TextStyle(color: Colors.black,
-      fontSize: 24,
-      fontWeight: FontWeight.w500
+      height: h,),
+      SizedBox(height: 5,),
+      // Text(type,
+      // style: TextStyle(color: Colors.black,
+      // fontSize: 24,
+      // fontWeight: FontWeight.w500
 
-      ),
-      ),
+      // ),
+      // ),
     ],
   ));
 }

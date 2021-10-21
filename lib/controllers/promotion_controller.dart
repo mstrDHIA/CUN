@@ -88,6 +88,13 @@ firestore.collection("Announces").get().then((querySnapshot) {
     update();
   }
 
+
+// @override
+//   void onInit() { // called immediately after the widget is allocated memory
+     
+//     super.onInit();
+//   }
+
   getOnlyProms(context){
     allPro.forEach((element) {
       if(element.isPromotion)
@@ -95,16 +102,18 @@ firestore.collection("Announces").get().then((querySnapshot) {
     update();
 
      });
+                     print("ping"+onlyproms.length.toString());
+
   }
 getOnlyAnn(context){
     allPro.forEach((element) {
       if(!element.isPromotion)
-      onlyproms.add(PromotionVisitorCard(element,context));
+      onlyAnn.add(PromotionVisitorCard(element,context));
     update();
 
      });
   }
-  getPromotions(HomeController homecontrol) async {
+ Future<void> getPromotions(HomeController homecontrol) async {
    myPro.clear();
   print(myPro.length);
 print('aaaaaaaaaa');

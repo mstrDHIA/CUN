@@ -12,19 +12,63 @@ import 'package:grocery_app/widgets/login_widgets.dart';
 class LoginScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
+    UserController usercontrol=Get.put(UserController());
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
         body: Center(
     child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.center,
       children:[
         
-      
-      LoginCard("Visitor",context),
+         Row(
+           mainAxisAlignment: MainAxisAlignment.end,
+           children: [
+             Padding(
+               padding: const EdgeInsets.only(right:16.0),
+               child: OwnerLoginCard("Business Owner",context),
+             ),
+           ],
+         ),
+      //LoginCard("Visitor",context),
+      Center(
+    child: Container(
+      child: Column(
+        children: [
+          
+        //   Padding(
+        //     padding: const EdgeInsets.all(16.0),
+        //     child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.start,
+        //     children:[
+              
+        //       Padding(
+        //         padding: const EdgeInsets.only(top:36.0),
+        //         child: FloatingActionButton(
+        //           backgroundColor: Color(0xfffafafa),
+        //           child: Padding(
+        //             padding: const EdgeInsets.only(left:8.0),
+        //             child: Icon(Icons.arrow_back_ios,
+        //         color: Colors.black,),
+        //           ),
+        //         onPressed: (){
+        //           Navigator.pop(context);
+        //         }),
+        //       ),
+        //     ]
+        // ),
+        //   ),
+                        // Image.asset("assets/images/cun_logo.png",
+                        // height: 170,),
+
+          VisitorLoginCard(usercontrol,context),
+        ],
+      ),
+    ),
+        ),
       Padding(
         padding: const EdgeInsets.symmetric(vertical:20.0),
-        child: Text("Are you a?",
+        child: Text("Welcome to CUN",
         style: TextStyle(
           fontSize: 24,
           fontWeight: FontWeight.w800,
@@ -32,7 +76,7 @@ class LoginScreen extends StatelessWidget{
         ),
         ),
       ),
-                  LoginCard("Business Owner",context),
+               //   LoginCard("Business Owner",context),
 
     ]),
         ),
