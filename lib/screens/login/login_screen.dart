@@ -12,33 +12,31 @@ import 'package:grocery_app/widgets/login_widgets.dart';
 class LoginScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-          child: Scaffold(
-            backgroundColor: AppColors.primaryColor,
+    return Scaffold(
+      backgroundColor: AppColors.primaryColor,
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children:[
-              
-            
-            LoginCard("Visitor",context),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical:20.0),
-              child: Text("Are you a?",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w800,
-                color: Colors.white
-              ),
-              ),
-            ),
-                        LoginCard("Business Owner",context),
-
-          ]),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children:[
+        
+      
+      LoginCard("Visitor",context),
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical:20.0),
+        child: Text("Are you a?",
+        style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.w800,
+          color: Colors.white
+        ),
         ),
       ),
-    );
+                  LoginCard("Business Owner",context),
+
+    ]),
+        ),
+      );
     // TODO: implement build
     throw UnimplementedError();
   }

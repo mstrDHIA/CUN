@@ -7,7 +7,7 @@ import 'package:grocery_app/screens/stores/explore_screen.dart';
 import 'package:grocery_app/screens/home/home_screen.dart';
 import 'package:grocery_app/screens/promotion/add_promotion.dart';
 
-import '../promotions_screen.dart';
+import '../promotion/promotions_screen.dart';
 import '../test_screen.dart';
 
 class NavigatorItem {

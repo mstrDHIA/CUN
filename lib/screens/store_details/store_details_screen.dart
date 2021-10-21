@@ -10,6 +10,7 @@ import 'package:grocery_app/controllers/store_controller.dart';
 import 'package:grocery_app/controllers/user_control.dart';
 import 'package:grocery_app/models/grocery_item.dart';
 import 'package:grocery_app/models/store.dart';
+import 'package:grocery_app/screens/map/map_screen.dart';
 import 'package:grocery_app/screens/stores/store_edit.dart';
 import 'package:grocery_app/styles/colors.dart';
 import 'package:grocery_app/widgets/item_counter_widget.dart';
@@ -55,7 +56,9 @@ class StoreDetailsScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ElevatedButton(onPressed: () {}, child: Text("Send Message")),
-              ElevatedButton(onPressed: () {}, child: Text("Show Location"))
+              ElevatedButton(onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>MapScreen(store: store,)));
+              }, child: Text("Show Location"))
             ],
           ),
         ),

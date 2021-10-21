@@ -5,20 +5,82 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:grocery_app/controllers/map_controller.dart';
 import 'package:grocery_app/controllers/home_controller.dart';
+import 'package:grocery_app/models/store.dart';
 import 'package:grocery_app/widgets/map_widgets.dart';
 class MapScreen extends StatelessWidget{
     final TextEditingController searchcontrol=TextEditingController();
-    static final CameraPosition _kGooglePlex = CameraPosition(
+      CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(36.8471779, 10.2039552),
     zoom: 14.4746,
   );
+      final Store store;
+
     GoogleMapController control;
+
+   MapScreen({Key key, this.store}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Widget search=SizedBox();
+    Widget back=SizedBox();
+    Widget filter=SizedBox();
             final MapController mapcontrol = Get.put(MapController());
             final HomeController homecontrol = Get.put(HomeController());
+    mapcontrol.markers.clear();
+
+if(store==null){
 mapcontrol.getMarkers(context);
+  search=Positioned(
+            top: 15,
+            left: 25,
+            child: SearchBarWidget(homecontrol,mapcontrol,searchcontrol, context));
+         filter= Positioned(
+              right: 15,
+              top: 100,
+              child: mapcontrol.filterCard[0],
+            );  
+}
+else{
+  back=Positioned(
+          top: 45,
+          left: 15,
+          child:  FloatingActionButton(
+            elevation: 2,
+            backgroundColor: Colors.white,
+            child: Padding(
+            
+            padding: const EdgeInsets.only(left:8.0),
+            child: Icon(Icons.arrow_back_ios,
+            color: Colors.black,),
+          ),
+          onPressed: (){Navigator.pop(context);}
+          )
+          );
+  _kGooglePlex = CameraPosition(
+    target: LatLng(store.lat, store.long),
+    zoom: 14.4746,
+  );
+   mapcontrol.markers.add(Marker(
+                          icon: BitmapDescriptor.defaultMarker,
+            infoWindow: InfoWindow(
+              title: store.name,
+              
+              ),
+
+            markerId: MarkerId(store.name),
+            position: LatLng(store.lat,store.long),
+            
+            // onTap: () {
+            //   if(mapcontrol.card.length>0){
+            //     mapcontrol.card.clear();
+            //     mapcontrol.card.add(StoreMapCard(context,
+            //       store,
+            //     ),);
+            //   }
+            //   mapcontrol.update();
+            // },
+            ));
+}
 mapcontrol.filterVisible=true;
    mapcontrol.displayFilter(homecontrol,context,mapcontrol);
  return 
@@ -47,21 +109,14 @@ mapcontrol.filterVisible=true;
             },
 
         ),
+        back,
         Positioned(
           bottom: 25,
           left: 75,
           child:  mapcontrol.card[0]
           ),
-          Positioned(
-            top: 15,
-            left: 25,
-            child: SearchBarWidget(homecontrol,mapcontrol,searchcontrol, context)),
-           
-            Positioned(
-              right: 15,
-              top: 100,
-              child: mapcontrol.filterCard[0],
-            ),
+        search,
+           filter
           ]
       );
            },

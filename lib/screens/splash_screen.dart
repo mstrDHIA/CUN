@@ -55,8 +55,8 @@ Future<void> onTimerFinished(context,HomeController control)  {
   }
 
 Widget splashScreenIcon() {
-  String iconPath = "assets/icons/splash_screen_icon.svg";
-  return SvgPicture.asset(
+  String iconPath = "assets/images/logo_colors-02.png";
+  return Image.asset(
     iconPath,
   );
 }
