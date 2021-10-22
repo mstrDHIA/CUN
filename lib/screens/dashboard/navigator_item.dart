@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grocery_app/controllers/user_control.dart';
 import 'package:grocery_app/screens/account/account_screen.dart';
+import 'package:grocery_app/screens/chat/chat_screen.dart';
 import 'package:grocery_app/screens/map/map_screen.dart';
 import 'package:grocery_app/screens/store_details/store_details_screen.dart';
 import 'package:grocery_app/screens/stores/explore_screen.dart';
@@ -30,6 +31,6 @@ List<NavigatorItem> navigatorItems = [
   NavigatorItem("Map", Icon(Icons.location_on), 1, MapScreen()),
   NavigatorItem("Home", Icon(Icons.home), 2, HomeScreen()),
   NavigatorItem("Promotions", Icon(Icons.local_offer), 3, PromotionsScreen()),
-    NavigatorItem("Contact", Icon(Icons.chat), 4, AddPromotionScreen()),
+    NavigatorItem("Contact", Icon(Icons.chat), 4, ChatScreen()),
 
 ];

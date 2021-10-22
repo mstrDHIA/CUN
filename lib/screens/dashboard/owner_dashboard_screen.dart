@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:grocery_app/controllers/user_control.dart';
 import 'package:grocery_app/models/store.dart';
+import 'package:grocery_app/screens/chat/chat_screen.dart';
 import 'package:grocery_app/screens/promotion/add_promotion.dart';
 import 'package:grocery_app/screens/promotion/my_promotions.dart';
 import 'package:grocery_app/screens/store_details/store_details_screen.dart';
@@ -39,7 +40,7 @@ class _OwnerDashboardScreenState extends State<OwnerDashboardScreen> {
   NavigatorItem("Promotions", Icon(Icons.local_offer), 0, MyPromotions()),
     NavigatorItem("Home", Icon(Icons.home), 1, StoreDetailsScreen(usercontrol.store)),
 
-    NavigatorItem("Contact", Icon(Icons.chat), 2, AddPromotionScreen()),
+    NavigatorItem("Contact", Icon(Icons.chat), 2, ChatScreen()),
 
 ];
 

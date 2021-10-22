@@ -43,6 +43,7 @@ class StoreDetailsScreen extends StatelessWidget {
                             onPressed: (){
                               
                               storecontrol.store=store;
+                              storecontrol.loading=false;
                               Navigator.push(context, MaterialPageRoute(builder: (context)=>StoreEditScreen(store:store)));
                             },
                             child: Icon(Icons.edit),)
@@ -185,7 +186,29 @@ SizedBox(
                               ),
                                   Phone(store),
                               Socials(store),
+                                  SizedBox(
+                                height: 20,
+                              ),
                              
+                              Divider(
+                                thickness: 2,
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                               Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  AppText(
+                                      text: "Services:",
+                                      textAlign: TextAlign.left,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 20),
+
+                                      // ImagesList(store:store,context:context),
+                                ],
+                              ),
+                            
                             ],
                           ),
                         ),

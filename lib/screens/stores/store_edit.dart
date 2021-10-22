@@ -72,7 +72,29 @@ class StoreEditScreen extends StatelessWidget {
     return GetBuilder<StoreController>(
       
           builder: (GetxController controller) { 
-
+if(storecontrol.loading){
+  return Scaffold(
+        appBar: AppBar(
+          backgroundColor: AppColors.primaryColor,
+          title: Text("CUN"),
+          actions: [
+            IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.notifications,
+                  color: Color(0xfffafafa),
+                ))
+          ],
+        ),
+        body: SafeArea(
+        
+              child:Center(child: CircularProgressIndicator())
+          
+        ),
+       
+      );
+}
+else{
 return Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.primaryColor,
@@ -288,14 +310,19 @@ SizedBox(
                 //   print(address);
                 // }, child: Text("Send Message")),
                 ElevatedButton(onPressed: () {
+                      storecontrol.days.clear();
+
                   storecontrol.updateStore(
+
+                    context: context,
                     description: desccontrol.text,
                     email: emailcontrol.text,
                     homecontrol: homecontrol,
                     manager: managercontrol.text,
                     phone: phonecontrol.text,
-                    social: socialcontrol
-
+                    social: socialcontrol,
+                    opencontrol: opencontrol,
+                    closecontrol: closecontrol
                   );
                 }, child: Text("Confirm"))
               ],
@@ -303,6 +330,8 @@ SizedBox(
           ),
         ),
       );
+}
+
            },
           
     );
@@ -345,7 +374,11 @@ SizedBox(
       ),
       child: Column(
               children:[ 
-control.im,
+Container(
+  constraints: BoxConstraints(
+    maxHeight: 250
+  ),
+  child: control.im),
                 //
         //         Container(
         //         height: 150,

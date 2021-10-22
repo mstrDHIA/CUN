@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:grocery_app/screens/promotion/my_promotions.dart';
 import 'package:grocery_app/widgets/promotions_widgets.dart';
 import 'package:path/path.dart';
 
@@ -212,7 +213,7 @@ Future<String> uploadFile() async {
       return urlDownload;
 }
 
-addPro({UserController usercontrol,String code,String title,String description,String begin,String end}) async {
+addPro({context,UserController usercontrol,String code,String title,String description,String begin,String end}) async {
  bool isPro=false;
  String url="https://firebasestorage.googleapis.com/v0/b/cun-app.appspot.com/o/defaults%2Fannonce.jpeg?alt=media&token=245f7402-5fcc-410f-b5c5-ac8dc2cc156c";
   if(type=="Promotion"){
@@ -259,6 +260,7 @@ addPro({UserController usercontrol,String code,String title,String description,S
       'store':data.reference
     });
     myPro.add(pro);
+    Navigator.pushReplacement(context, MaterialPageRoute(builder:(context)=>MyPromotions()));
   update();
     }); //this return the DocumentReference }); 
 

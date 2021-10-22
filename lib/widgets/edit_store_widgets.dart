@@ -8,6 +8,9 @@ import 'package:grocery_app/styles/colors.dart';
 
 Widget InputEdit(TextEditingController control,Store store,int lines){
   return TextFormField(
+    onChanged: (val){
+    
+    },
     //initialValue: store.description,
     maxLines: lines,
           controller: control,
@@ -43,6 +46,8 @@ List<String> catnames=List();
 homecontrol.categories.forEach((element) { 
   catnames.add(element.name);
 });
+  storecontrol.dropval=store.category.name;
+
 return DropdownButton<String>(
     value: storecontrol.dropval,
     icon: const Icon(Icons.arrow_downward),

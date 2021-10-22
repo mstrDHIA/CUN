@@ -94,6 +94,7 @@ class AddPromotionScreen extends StatelessWidget{
                   child: ElevatedButton(child: Text("Confirm"),
                       onPressed: (){
                         procontrol.addPro(
+                          context:context,
                           begin: begincontrol.text,
                           end:endcontrol.text,
                           title: titlecontrol.text,

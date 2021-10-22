@@ -76,12 +76,13 @@ return GetBuilder<PromotionController>(builder: (GetxController controller){
               ),)));
               }
               else{
-                                procontrol.getOnlyAnn(context);
-                  procontrol.proms.clear();
-                  procontrol.onlyAnn.clear();
-                  for(int i=0;i<procontrol.onlyAnn.length;i++){
-                    procontrol.proms.add(procontrol.onlyAnn[i]);
-                  }
+                    procontrol.onlyAnn.clear();
+
+                    procontrol.proms.clear();
+                procontrol.getOnlyAnn(context);
+                 for(int i=0;i<procontrol.onlyAnn.length;i++){
+                   procontrol.proms.add(procontrol.onlyAnn[i]);
+                 }
                   procontrol.proms=procontrol.onlyAnn;
                                 procontrol.update();
                                 print("this is"+procontrol.onlyAnn.length.toString());

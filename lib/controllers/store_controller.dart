@@ -2,6 +2,10 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:grocery_app/controllers/home_controller.dart';
+import 'package:grocery_app/models/Category.dart';
+import 'package:grocery_app/screens/dashboard/owner_dashboard_screen.dart';
+import 'package:grocery_app/screens/store_details/store_details_screen.dart';
+import 'package:grocery_app/screens/stores/store_edit.dart';
 import 'package:path/path.dart';
 
 import 'package:flutter/material.dart';
@@ -14,15 +18,18 @@ import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 class StoreController extends GetxController{
 Timestamp opentime;
 Timestamp closetime;
+DateTime datetimeopen;
+DateTime datetimeclose;
 
 Image im;
 File file;
-String dropval="Food";
+String dropval;
 List<String> days=List();
 List colors=List();
 Store store;
 String address;
 LatLng pos;
+bool loading=false;
 
 Future<String> uploadFile() async {
       final filename=basename(file.path);
@@ -42,8 +49,12 @@ Future<String> uploadFile() async {
 
 
 
-Future<void> updateStore({List<TextEditingController> social,HomeController homecontrol,String description,String manager,String email,String phone}) async {
+Future<void> updateStore({List<TextEditingController> social,TextEditingController opencontrol,TextEditingController closecontrol,HomeController homecontrol,String description,String manager,String email,String phone,context}) async {
   List<String> socialnames=List();
+        loading=true;
+
+          update();
+
   int number=int.parse(phone);
   for(int i=0;i<store.social.length;i++){
     List<String> s=store.social[i].split(":");
@@ -54,24 +65,34 @@ final found =
           element.name == dropval,
           orElse: () {
             return null;
-  });     
+  });   
+  colors.forEach((element) {
+    if(element[1]){
+      days.add(element[0]);
+    }
+   }); 
 
 if(closetime==null){
-Timestamp closetime = store.closetime; 
+closetime = store.closetime; 
 }
 else{
-  closetime=store.closetime;
-}
+ // print("controller time "+opencontrol.text);
+ // DateTime open=DateTime.parse(opencontrol.text);
+   closetime=Timestamp.fromDate(datetimeclose);
 
+}
 if(opentime==null){
-Timestamp opentime = store.opentime; 
+opentime = store.opentime; 
 }
 else{
-  opentime=store.opentime;
+ // print("controller time "+opencontrol.text);
+ // DateTime open=DateTime.parse(opencontrol.text);
+   opentime=Timestamp.fromDate(datetimeopen);
+
 }
 //To TimeStamp
 // Timestamp open = Timestamp.fromDate(opentime); //To TimeStamp
-
+print("my name is "+manager);
   Store newstore=Store(
     id:store.id,
     description:description,
@@ -93,39 +114,77 @@ else{
   );
     print(newstore.available);
 
-  newstore=store;
+  //newstore=store;
+  String image=store.image;
   if(file!=null){
       print("upload start");
       
-      newstore.image=await uploadFile();
+       image=await uploadFile();
   }
-
+  print(manager);
+print(newstore.manager);
   print(store.id);
-  CollectionReference storeref = FirebaseFirestore.instance.collection('Stores');
+
+
+FirebaseFirestore.instance.collection("Categories")
+    .doc(found.id)
+    .get()
+    .then((DocumentSnapshot data){ 
+      CollectionReference storeref = FirebaseFirestore.instance.collection('Stores');
   storeref
     .doc(store.id)
     .update({
-    'description':newstore.description,
-    'manager':newstore.manager,
-    'phone': newstore.phone,
-    'email': newstore.email,
-    'open_days': newstore.available,
-    'address': newstore.address,
-    'lat': newstore..lat,
+    'description':description,
+    'manager':manager,
+    'phone': int.parse(phone),
+    'email': email,
+    'open_days': days,
+    'address': address,
+    'lat': newstore.lat,
     'long': newstore.long,
-    'category': "/Categories/"+newstore.category.id,
+    'category': data.reference,
     'country': "Tunisia",
     'zip_code': newstore.zipCode,
-    'close_time': newstore.closetime,
-    'open_time': newstore.opentime,
+    'close_time': closetime,
+    'open_time': opentime,
     'city': store.city,
     'name': store.name,
     'Social': newstore.social,
-
+    'image':image
     })
-    .then((value) => print("User Updated"))
+    .then((value) {
+      Category cat=Category(
+        name: data['name'],
+        image: data['image'],
+        id: data.id
+      );
+      store.description=description;
+    store.manager=manager;
+    store.phone= int.parse(phone);
+    store.email= email;
+    store.address= address;
+    store.category=cat;
+    store.available=days;
+    store.image=image;
+    
+    store.closetime= closetime;
+    store.opentime= opentime;
+    print("open time is "+opentime.toDate().hour.toString());
+    // colors.clear();
+    store.social= newstore.social;
+      print("User Updated");
+      closetime=null;
+      opentime=null;
+            loading=true;
+        update();
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>OwnerDashboardScreen(store:store)));
+      update();
+    } )
     .catchError((error) => print("Failed to update user: $error"));
 
+    });
+
+  
 
     // newstore.category.name=dropval;
   
@@ -166,6 +225,8 @@ final now = new DateTime.now();
     selectedTime = picked_s;
     
     DateTime closetimedate = DateTime(now.year, now.month, now.day, selectedTime.hour, selectedTime.minute);
+    datetimeclose=closetimedate;
+
     closetime=Timestamp.fromDate(closetimedate);
     closecontrol.text=selectedTime.hour.toString()+":"+selectedTime.minute.toString();
     update();
@@ -187,6 +248,7 @@ if (picked_s != null && picked_s != selectedTime ){
 final now = new DateTime.now();
     selectedTime = picked_s;
      DateTime opentimedate = DateTime(now.year, now.month, now.day, selectedTime.hour, selectedTime.minute);
+         datetimeopen=opentimedate;
     opentime=Timestamp.fromDate(opentimedate);
     closecontrol.text=selectedTime.hour.toString()+":"+selectedTime.minute.toString();
     update();

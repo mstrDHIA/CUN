@@ -7,7 +7,7 @@ class Category{
 
 
 
-  Category(String name,String image,String id){
+  Category({String name,String image,String id}){
     this.name=name;
     this.image=image;
     this.id=id;

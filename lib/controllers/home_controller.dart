@@ -208,7 +208,7 @@ final found =
         print(result.id);
         //print(result.data());
         List list = result.data().values.toList();
-        Category category = Category(list[1], list[0],result.id);
+        Category category = Category(name:list[1], image:list[0],id:result.id);
         //print(list[0]);
         // print(category.name);
         // print(category);

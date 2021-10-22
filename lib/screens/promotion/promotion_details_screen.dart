@@ -35,7 +35,17 @@ class PromotionDetailsScreen extends StatelessWidget{
             SingleChildScrollView(
               child: Column(
                 children: [
-                  getImageHeaderWidget(pro),
+                  InkWell(
+                    onTap: (){
+                      showDialog(context: context, builder: (context)=>SimpleDialog(
+                        children: [
+                          Center(
+                            child:Image.network(pro.image),
+                          )
+                        ],
+                      ) );
+                    },
+                    child: getImageHeaderWidget(pro)),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal:4.0),
                     child: Container(
@@ -72,7 +82,9 @@ class PromotionDetailsScreen extends StatelessWidget{
                                       },
                                                                         child: Row(
                                         children: [
-                                          CircleAvatar(child: Image.network(pro.store.image,)),
+                                          CircleAvatar(
+                                            backgroundColor: Colors.white,
+                                            child: Image.network(pro.store.image,)),
                                           SizedBox(width: 10),
                                           AppText(
                                               text: pro.store.name,
@@ -145,7 +157,10 @@ class PromotionDetailsScreen extends StatelessWidget{
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(child:Text("Visit Store"),
-            onPressed: (){},
+            onPressed: (){
+                                                      Navigator.push(context, MaterialPageRoute(builder: (context)=>StoreDetailsScreen(pro.store)));
+
+            },
             ),
           ],
         ),

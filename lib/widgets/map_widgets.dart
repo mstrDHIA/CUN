@@ -169,7 +169,7 @@ Widget AddressHolder(TextEditingController holder){
 
 
 Widget FilterStores(HomeController homecontrol,context,control){
-              Category all=Category("all","https://firebasestorage.googleapis.com/v0/b/cun-app.appspot.com/o/oil.png?alt=media&token=baa95f1b-b48f-4632-bab8-5b4e3ce380d4","1");
+              Category all=Category(name:"all",image:"https://firebasestorage.googleapis.com/v0/b/cun-app.appspot.com/o/oil.png?alt=media&token=baa95f1b-b48f-4632-bab8-5b4e3ce380d4",id:"1");
 
   return Container(
     width: 100,

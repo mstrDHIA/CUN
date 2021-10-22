@@ -27,7 +27,7 @@ class UserController extends GetxController{
   
 
 Store store;
-static bool isOwner;
+static bool isOwner=false;
 
 businessLogin(TextEditingController emailcontrol,TextEditingController psdcontrol,context) async {
 if(emailcontrol.text.isEmpty|psdcontrol.text.isEmpty){
@@ -74,9 +74,9 @@ else{
             ds["category"].get().then((DocumentSnapshot subds) async {
               
               Category c=Category(
-                subds["name"],
-                subds["image"],
-                subds.id
+                name:subds["name"],
+                image:subds["image"],
+                id:subds.id
               );
               
                Store s = Store(
