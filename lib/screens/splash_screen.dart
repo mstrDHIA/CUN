@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:grocery_app/models/Category.dart';
 import 'package:grocery_app/models/store.dart';
+import 'package:grocery_app/models/user.dart';
 import 'package:grocery_app/screens/dashboard/dashboard_screen.dart';
+import 'package:grocery_app/screens/dashboard/navigator_item.dart';
 import 'package:grocery_app/screens/dashboard/owner_dashboard_screen.dart';
 import 'package:grocery_app/screens/intro/intro_screen.dart';
 import 'package:grocery_app/screens/test_screen.dart';
@@ -58,6 +60,10 @@ Future<void> onTimerFinished(context,HomeController control)  async {
           bool ownerLogged = (prefs.getBool('isOwnerLogged') ?? false);
 
      if(logged){
+       Map<String,dynamic> usermap=jsonDecode(prefs.getString("user"));
+       usercontrol.loggeduser=User(email:usermap['email'],firstName:usermap['name'],photo:usermap['photo'] );
+       print("my name is "+usercontrol.loggeduser.firstName);
+       usercontrol.update();
         Navigator.of(context).pushReplacement(new MaterialPageRoute(
       builder: (BuildContext context) {
         return DashboardScreen();

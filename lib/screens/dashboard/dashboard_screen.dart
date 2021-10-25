@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:grocery_app/controllers/user_control.dart';
+import 'package:grocery_app/screens/account/account_screen.dart';
+import 'package:grocery_app/screens/chat/chat_screen.dart';
+import 'package:grocery_app/screens/home/home_screen.dart';
+import 'package:grocery_app/screens/map/map_screen.dart';
+import 'package:grocery_app/screens/promotion/promotions_screen.dart';
 import 'package:grocery_app/styles/colors.dart';
 import 'package:grocery_app/widgets/menu_widgets.dart';
 
+// import '../promotions_screen.dart';
 import 'navigator_item.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -19,8 +25,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
   //navitems=navigatorItems;
   @override
   Widget build(BuildContext context) {
+UserController usercontrol=Get.put(UserController());
+  usercontrol.getUserFromPrefs();
+List<NavigatorItem> navigatorItems = [
+    NavigatorItem("Account", Icon(Icons.account_circle), 0, AccountScreen(user:usercontrol.loggeduser)),
 
-  
+  NavigatorItem("Map", Icon(Icons.location_on), 1, MapScreen()),
+  NavigatorItem("Home", Icon(Icons.home), 2, HomeScreen()),
+  NavigatorItem("Promotions", Icon(Icons.local_offer), 3, PromotionsScreen()),
+    NavigatorItem("Contact", Icon(Icons.chat), 4, ChatScreen()),
+
+];
     return Scaffold(
       drawer: Drawer(child: SafeArea(
               child: Padding(

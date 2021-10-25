@@ -2,36 +2,55 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:grocery_app/common_widgets/app_text.dart';
+import 'package:grocery_app/controllers/user_control.dart';
 import 'package:grocery_app/helpers/column_with_seprator.dart';
+import 'package:grocery_app/models/user.dart';
+import 'package:grocery_app/screens/account/account_details_screen.dart';
 import 'package:grocery_app/styles/colors.dart';
 
 import 'account_item.dart';
 
 class AccountScreen extends StatelessWidget {
+  final User user;
+
+  const AccountScreen({Key key, this.user}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
+    // UserController usercontrol=Get.put(UserController()); 
+    // User user =usercontrol.loggeduser;
+    print(user.firstName);
+    // usercontrol.getUserFromPrefs();
+
+
+    return GetBuilder<UserController>(
+      builder: (GetxController controller) => 
+           Container(
         child: SingleChildScrollView(
           child: Column(
             children: [
               SizedBox(
                 height: 20,
               ),
-              ListTile(
-                leading:
-                    SizedBox(width: 65, height: 65, child: getImageHeader()),
-                title: AppText(
-                  text: "Mohammed Hashim",
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-                subtitle: AppText(
-                  text: "github.com/mohammedhashim44",
-                  color: Color(0xff7C7C7C),
-                  fontWeight: FontWeight.normal,
-                  fontSize: 16,
+              InkWell(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>AccountDetailsScreen(user: user,)));
+                },
+                              child: ListTile(
+                  leading:
+                      SizedBox(width: 65, height: 65, child: getImageHeader()),
+                  title: AppText(
+                    text: user.firstName,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  subtitle: AppText(
+                    text: user.email,
+                    color: Color(0xff7C7C7C),
+                    fontWeight: FontWeight.normal,
+                    fontSize: 16,
+                  ),
                 ),
               ),
               Column(
@@ -98,10 +117,10 @@ class AccountScreen extends StatelessWidget {
   }
 
   Widget getImageHeader() {
-    String imagePath = "assets/images/account_image.jpg";
+    String imagePath = user.photo;
     return CircleAvatar(
       radius: 5.0,
-      backgroundImage: AssetImage(imagePath),
+      backgroundImage: NetworkImage(imagePath),
       backgroundColor: AppColors.primaryColor.withOpacity(0.7),
     );
   }

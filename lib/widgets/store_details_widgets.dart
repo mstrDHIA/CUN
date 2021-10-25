@@ -1,7 +1,10 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:grocery_app/common_widgets/app_text.dart';
+import 'package:grocery_app/controllers/store_controller.dart';
 import 'package:grocery_app/models/store.dart';
+import 'package:photo_view/photo_view.dart';
 
 
 
@@ -262,7 +265,92 @@ Widget OpenDays(Store store){
 }
 
 
-Widget ImagesList({Store store,context}){}
+
+   Widget ImageSlide({Store store,context}){
+     List<Widget> images=[];
+     List<Widget> imagesNatural=[];
+     double h=300;
+     double w=400;
+     for(int i=0;i<store.images.length;i++){
+        imagesNatural.add(PhotoView(
+          
+                  imageProvider: NetworkImage(store.images[i],
+          // height: 600,
+          scale: 0.6,
+          // width: 700,
+          ),
+        ));
+
+       images.add(Container(
+         height: 300,
+         width: 400,
+         constraints: BoxConstraints(
+           maxHeight:300,
+           maxWidth: 400
+         ),
+         child: InkWell(
+           onTap:() {
+             showDialog(context: context, builder: (context)=>SimpleDialog(
+                      backgroundColor: Colors.transparent,
+                      insetPadding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
+                      titlePadding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
+
+               children: [
+                //  Image.network(store.images[i])
+                CarouselSlider(
+        items: imagesNatural,
+
+         options: CarouselOptions(
+            // viewportFraction: 1,
+            viewportFraction: 1,
+            aspectRatio: 1,
+            // height: 500,
+           initialPage: i,
+          //  height: 400,
+          //  autoPlay: true,
+          //  autoPlayAnimationDuration: Duration(seconds: 1),
+          //  pauseAutoPlayOnTouch: true,
+          //  enlargeCenterPage: true,
+           enableInfiniteScroll: false,
+
+
+           ),)
+    
+                 ],
+             ));},
+           child: Image.network(store.images[i],
+           height: h,
+           width: w,
+           )
+           ),
+       )
+         );
+     }
+      return CarouselSlider(
+        items: images,
+
+         options: CarouselOptions(
+            viewportFraction: 0.6,
+            
+          //  aspectRatio: 2,
+          //  height: 300,
+           initialPage: 0,
+           autoPlay: true,
+           autoPlayAnimationDuration: Duration(seconds: 1),
+           pauseAutoPlayOnTouch: true,
+           enlargeCenterPage: true,
+           enableInfiniteScroll: false,
+
+
+           ),);
+    }
+
+Widget ImagesList({Store store,context}){
+
+return ImageSlide(store: store,context: context);
+
+}
 
 Widget Day({bool open,String day}){
   Color color=Colors.red;

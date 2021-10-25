@@ -25,12 +25,3 @@ UserController usercontrol=UserController();
 
 
 
-List<NavigatorItem> navigatorItems = [
-    NavigatorItem("Account", Icon(Icons.account_circle), 0, AccountScreen()),
-
-  NavigatorItem("Map", Icon(Icons.location_on), 1, MapScreen()),
-  NavigatorItem("Home", Icon(Icons.home), 2, HomeScreen()),
-  NavigatorItem("Promotions", Icon(Icons.local_offer), 3, PromotionsScreen()),
-    NavigatorItem("Contact", Icon(Icons.chat), 4, ChatScreen()),
-
-];

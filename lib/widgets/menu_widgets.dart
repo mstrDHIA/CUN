@@ -44,6 +44,7 @@ List<String> menu_items=[
 
                               SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool("isLogged", false);
+    prefs.remove("user");
     Navigator.push(context, MaterialPageRoute(builder:   (context) => (LoginScreen())),);
                         },child: Text("Yes"),),
                       TextButton(onPressed: () { 

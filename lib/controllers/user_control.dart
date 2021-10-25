@@ -13,7 +13,7 @@ import 'package:grocery_app/screens/dashboard/navigator_item.dart';
 import 'package:grocery_app/screens/dashboard/owner_dashboard_screen.dart';
 import 'package:grocery_app/screens/home/home_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import '../models/user.dart' as u;
 import 'package:grocery_app/screens/dashboard/dashboard_screen.dart';
 import 'package:grocery_app/screens/login_success_screen.dart';
 import 'package:grocery_app/screens/map/map_screen.dart';
@@ -24,7 +24,7 @@ import 'package:grocery_app/screens/test_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserController extends GetxController{
-  
+  u.User loggeduser;
 
 Store store;
 static bool isOwner=false;
@@ -207,17 +207,25 @@ if (result.status == LoginStatus.success) {
            {
              "name":i.user.displayName,
              "email":i.user.email,
+             "photo":i.user.photoURL,      
       //       "phone":i.user.phoneNumber
            }
-   );
-          // .then((value) => print("User Added"))
-          // .catchError((error) => print("Failed to add user: $error"));
-    //print(accessToken.);
-    print("login success");
+   ).then((value)  async {
+// print("phone number "+i.user.phoneNumber);
+     print("login success");
     isOwner=false;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool("isLogged", true);
+    u.User fireUser=u.User(email: i.user.email,firstName: i.user.displayName,photo:i.user.photoURL );
+    String userjson=jsonEncode(fireUser);
+     prefs.setString("user",userjson);
+     loggeduser=u.User(email: i.user.email,firstName: i.user.displayName,photo:i.user.photoURL );
     Navigator.push(context, MaterialPageRoute(builder:   (context) => DashboardScreen()),);
+   });
+          // .then((value) => print("User Added"))
+          // .catchError((error) => print("Failed to add user: $error"));
+    //print(accessToken.);
+    
 } else {
     print(result.status);
     print(result.message);
@@ -257,6 +265,15 @@ if (result.status == LoginStatus.success) {
 
   Login(){
     
+  }
+
+  getUserFromPrefs() async {
+     SharedPreferences prefs = await SharedPreferences.getInstance();
+            Map<String,dynamic> usermap=jsonDecode(prefs.getString("user"));
+
+      loggeduser=u.User(email:usermap['email'],firstName:usermap['name'],photo:usermap['photo'] );
+       print("my name is "+loggeduser.firstName);
+       usercontrol.update();
   }
 
 }

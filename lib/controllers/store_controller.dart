@@ -20,7 +20,7 @@ Timestamp opentime;
 Timestamp closetime;
 DateTime datetimeopen;
 DateTime datetimeclose;
-
+List<String> services;
 Image im;
 File file;
 String dropval;
