@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1032227141579",
+    "project_id": "cun-app",
+    "storage_bucket": "cun-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1032227141579:android:0ff2a837aa1ff6e9daa84e",
+        "android_client_info": {
+          "package_name": "com.example.grocery_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1032227141579-ksqcetiba38ni50a96seljb06tedi9d5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_5n6j9LcNrGmROrRzMVDhvWcnaZ2Ec1M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1032227141579-ksqcetiba38ni50a96seljb06tedi9d5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1032227141579-phpmd1mtqe1d5aemp5f9stp8608cgdbt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.groceryApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
