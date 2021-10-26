@@ -17,19 +17,21 @@ class PromotionsScreen extends StatelessWidget{
      if(procontrol.allPro.length>0){procontrol.allPro.clear();}
       if(procontrol.proms.length>0)procontrol.proms.clear();
             final HomeController homecontrol = Get.put(HomeController());
+                  procontrol.getPromotions(homecontrol).then((value) { }
+);
 
-                   if(procontrol.onlyproms.length>0) procontrol.onlyproms.clear();
-                                procontrol.getPromotions(homecontrol).whenComplete(() {
-                                    print("pong"+procontrol.allPro.length.toString());
+                //    if(procontrol.onlyproms.length>0) procontrol.onlyproms.clear();
+                //                 procontrol.getPromotions(homecontrol).whenComplete(() {
+                //                     print("pong"+procontrol.allPro.length.toString());
 
-                procontrol.getOnlyProms(context);
-                print("ping"+procontrol.onlyproms.length.toString());
-                 for(int i=0;i<procontrol.onlyproms.length;i++){
-                   procontrol.proms.add(procontrol.onlyproms[i]);
-                                    procontrol.update();
+                // procontrol.getOnlyProms(context);
+                // print("ping"+procontrol.onlyproms.length.toString());
+                //  for(int i=0;i<procontrol.onlyproms.length;i++){
+                //    procontrol.proms.add(procontrol.onlyproms[i]);
+                //                     procontrol.update();
 
-                 }
-                                });
+                //  }
+                //                 });
               
                                                   //   procontrol.update();
 
@@ -53,16 +55,16 @@ return GetBuilder<PromotionController>(builder: (GetxController controller){
               1:procontrol.text2
             }, onValueChanged: (value){
               if(value==0){
-                                  procontrol.proms.clear();
-                                  procontrol.onlyproms.clear();
-                procontrol.getOnlyProms(context);
-                 for(int i=0;i<procontrol.onlyproms.length;i++){
-                   procontrol.proms.add(procontrol.onlyproms[i]);
-                 }
-                                procontrol.update();
-                                print(procontrol.proms.length);
-                                print("this is"+procontrol.onlyproms.length.toString());
-
+                //                   procontrol.proms.clear();
+                //                   procontrol.onlyproms.clear();
+                // procontrol.getOnlyProms(context);
+                //  for(int i=0;i<procontrol.onlyproms.length;i++){
+                //    procontrol.proms.add(procontrol.onlyproms[i]);
+                //  }
+                //                 procontrol.update();
+                //                 print(procontrol.proms.length);
+                //                 print("this is"+procontrol.onlyproms.length.toString());
+                  procontrol.currentChoice=PromotionsChoice(procontrol, context);
                 procontrol.text1=Padding(padding: EdgeInsets.symmetric(horizontal:30),
               child: Container(child:Text("Promotions",
               style: TextStyle(
@@ -76,17 +78,17 @@ return GetBuilder<PromotionController>(builder: (GetxController controller){
               ),)));
               }
               else{
-                    procontrol.onlyAnn.clear();
+                //     procontrol.onlyAnn.clear();
 
-                    procontrol.proms.clear();
-                procontrol.getOnlyAnn(context);
-                 for(int i=0;i<procontrol.onlyAnn.length;i++){
-                   procontrol.proms.add(procontrol.onlyAnn[i]);
-                 }
-                  procontrol.proms=procontrol.onlyAnn;
-                                procontrol.update();
-                                print("this is"+procontrol.onlyAnn.length.toString());
-
+                //     procontrol.proms.clear();
+                // procontrol.getOnlyAnn(context);
+                //  for(int i=0;i<procontrol.onlyAnn.length;i++){
+                //    procontrol.proms.add(procontrol.onlyAnn[i]);
+                //  }
+                //   procontrol.proms=procontrol.onlyAnn;
+                //                 procontrol.update();
+                //                 print("this is"+procontrol.onlyAnn.length.toString());
+                  procontrol.currentChoice=AnnouncesChoice(procontrol,context);
                   procontrol.text1=Padding(padding: EdgeInsets.symmetric(horizontal:30),
               child: Container(child:Text("Promotions",
               style: TextStyle(
@@ -105,8 +107,9 @@ return GetBuilder<PromotionController>(builder: (GetxController controller){
               print(value);
             }),
           ),
-          for(var pro in procontrol.proms)
-          pro,
+          procontrol.currentChoice,
+          // for(var pro in procontrol.proms)
+          // pro,
           // ListView.builder(
           //     itemCount: procontrol.allPro.length,
           //     itemBuilder: (BuildContext context,int index){

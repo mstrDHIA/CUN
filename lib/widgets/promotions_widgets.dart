@@ -313,6 +313,69 @@ Code(Promotion pro){
   ],);
 }
 
+Widget AnnouncesChoice(PromotionController procontrol,context){
+ print("announcess");
+  print("promotions "+procontrol.allPro.length.toString());
+  
+  procontrol.proms.clear();
+                                  procontrol.onlyproms.clear();
+                                  List<Promotion>onlyanns=[];
+                                  List<Widget> annWidget=[];
+                                                                    int j=0;
+
+                                  for(int i=0;i<procontrol.allPro.length;i++){
+                                      if(!procontrol.allPro[i].isPromotion){
+                                        onlyanns.add(procontrol.allPro[i]);
+                                        
+                                        annWidget.add(PromotionVisitorCard(onlyanns[j],context));
+                                        j++;
+                                      }
+                                  }
+                                  
+                // procontrol.getOnlyProms(context);
+                //  for(int i=0;i<procontrol.onlyproms.length;i++){
+                //    procontrol.proms.add(procontrol.onlyproms[i]);
+                //  }
+                                // procontrol.update();
+                                // print(procontrol.proms.length);
+                                // print("this is"+procontrol.onlyproms.length.toString());
+
+               procontrol.update();
+               return Column(children:[
+                 for(var i in annWidget)
+               i]);
+}
+
+Widget PromotionsChoice(PromotionController procontrol,context){
+  print("promotions "+procontrol.allPro.length.toString());
+  
+  procontrol.proms.clear();
+                                  procontrol.onlyproms.clear();
+                                  List<Promotion>onlyproms=[];
+                                  List<Widget> promsWidget=[];
+                                  int j=0;
+                                  for(int i=0;i<procontrol.allPro.length;i++){
+                                      if(procontrol.allPro[i].isPromotion){
+                                        onlyproms.add(procontrol.allPro[i]);
+                                        promsWidget.add(PromotionVisitorCard(onlyproms[j],context));
+                                      j++;
+                                      }
+                                  }
+                                  
+                // procontrol.getOnlyProms(context);
+                //  for(int i=0;i<procontrol.onlyproms.length;i++){
+                //    procontrol.proms.add(procontrol.onlyproms[i]);
+                //  }
+                                // procontrol.update();
+                                // print(procontrol.proms.length);
+                                // print("this is"+procontrol.onlyproms.length.toString());
+
+               procontrol.update();
+               return Column(children:[
+                 for(var i in promsWidget)
+               i]);
+}
+
 Widget getImageHeaderWidget(Promotion pro) {
     return Container(
       height: 250,

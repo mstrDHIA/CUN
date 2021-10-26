@@ -17,6 +17,7 @@ import 'package:image_picker/image_picker.dart';
 import 'home_controller.dart';
 
 class PromotionController extends GetxController {
+  Widget currentChoice=SizedBox();
   List<Widget> proms=[SizedBox()];
   List<Widget> onlyproms=[SizedBox()];
   List<Widget> onlyAnn=[SizedBox()];
@@ -154,6 +155,7 @@ firestore.collection("Announces").get().then((querySnapshot) {
         );
         allPro.add(pro);
           print(allPro.length);
+          currentChoice=PromotionsChoice(this, context);
         //  proms.add(PromotionVisitorCard(pro,context));
     update();
 
