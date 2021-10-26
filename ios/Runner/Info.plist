@@ -22,6 +22,15 @@
   <string>fbauth2</string>
   <string>fbshareextension</string>
 </array>
+<key>GADApplicationIdentifier</key>
+<string>ca-app-pub-5307184626643173~5964106760</string>
+<key>SKAdNetworkItems</key>
+  <array>
+    <dict>
+      <key>SKAdNetworkIdentifier</key>
+      <string>cstr6suwn9.skadnetwork</string>
+    </dict>
+  </array>
 <key>CFBundleURLTypes</key>
 <array>
  <dict>

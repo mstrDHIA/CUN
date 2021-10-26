@@ -1,7 +1,10 @@
- import 'package:carousel_slider/carousel_slider.dart';
+ import 'dart:io';
+
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:grocery_app/common_widgets/app_text.dart';
 import 'package:grocery_app/controllers/home_controller.dart';
 import 'package:grocery_app/models/Category.dart';
@@ -22,9 +25,57 @@ Widget padded(Widget widget) {
 
 
   Widget CategoriesyStores(HomeController control){
+            final BannerAdListener listener = BannerAdListener(
+ // Called when an ad is successfully received.
+ onAdLoaded: (Ad ad) => print('Ad loaded.'),
+ // Called when an ad request failed.
+ onAdFailedToLoad: (Ad ad, LoadAdError error) {
+   // Dispose the ad here to free resources.
+   ad.dispose();
+   print('Ad failed to load: $error');
+ },
+ // Called when an ad opens an overlay that covers the screen.
+ onAdOpened: (Ad ad) => print('Ad opened.'),
+ // Called when an ad removes an overlay that covers the screen.
+ onAdClosed: (Ad ad) => print('Ad closed.'),
+ // Called when an impression occurs on the ad.
+ onAdImpression: (Ad ad) => print('Ad impression.'),
+);
+  final BannerAd myBanner = BannerAd(
+  adUnitId: Platform.isAndroid?'ca-app-pub-3940256099942544/6300978111':'ca-app-pub-3940256099942544/2934735716',
+  size: AdSize.largeBanner,
+  request: AdRequest(),
+  listener: listener,
+);
+final AdWidget adWidget = AdWidget(ad: myBanner);
+
+    List<Widget> categoriesAds=[];
+    for(int i=0;i<control.categories.length;i++){
+      categoriesAds.add(CategoryStore(control, control.categories[i]));
+      if(i%2!=0){
+        categoriesAds.add(Column(
+          children: [
+            SizedBox(height:20),
+            Container(
+  alignment: Alignment.center,
+  child: adWidget,
+  width: myBanner.size.width.toDouble(),
+  height: myBanner.size.height.toDouble(),
+),
+            SizedBox(height:10),
+
+          ],
+        ),);
+        myBanner.load();
+
+      }
+    }
+
     return Column(children: [
-              for(var category in control.categories)
-              CategoryStore(control, category)
+      for(var catad in categoriesAds)
+      catad,
+              // for(var category in control.categories)
+              // CategoryStore(control, category)
 
     ],);
   }
