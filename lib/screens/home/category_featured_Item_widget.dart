@@ -73,7 +73,7 @@ Widget CategoryItem(int i,HomeController control,context){
   Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => ExploreScreen(foundStores: foundStores,)),
+          builder: (context) => ExploreScreen(foundStores: foundStores,keyword: foundStores[0].category.name,)),
     );
                },
               child: Container(

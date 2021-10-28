@@ -25,8 +25,8 @@ List<Color> gridColors = [
 
 class ExploreScreen extends StatelessWidget {
   final List<Store> foundStores;
-
-  const ExploreScreen({Key key, this.foundStores}) : super(key: key);
+  final String keyword;
+  const ExploreScreen({Key key, this.foundStores, this.keyword}) : super(key: key);
   @override
   Widget build(BuildContext context) {
 
@@ -48,7 +48,31 @@ class ExploreScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            //getHeader(),
+                        SizedBox(height:10),
+
+            Row(mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Your search for ",
+                style:TextStyle(
+                  fontSize:20,
+                  fontWeight:FontWeight.w700
+                )
+                ),
+
+                Text(keyword,
+                style:TextStyle(
+                  fontSize:20,
+                  color: AppColors.primaryColor,
+                  fontWeight:FontWeight.w900
+                )
+                ),
+              ],
+            ),
+            //getHeader(),         
+               SizedBox(height:15),
+
+            Divider(thickness: 2,),
+            SizedBox(height:20),
             Expanded(
               child: getStoresGridView(context,foundStores),
             ),

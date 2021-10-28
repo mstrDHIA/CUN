@@ -270,10 +270,11 @@ Widget CategoryStore(HomeController control,Category category){
           element.name.toLowerCase().contains(value.toLowerCase()),
       ).toList();
   if(found!=null){
+    // print("found "+searchcontrol.text);
               Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => ExploreScreen(foundStores: found,)),
+          builder: (context) => ExploreScreen(foundStores: found,keyword: value,)),
     );
   }
     //           Navigator.push(

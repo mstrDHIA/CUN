@@ -27,18 +27,22 @@ final List<Widget> filterCard=[Container()];
 void displayFilter(HomeController homecontrol,context,MapController mapcontrol){
 
 
-print("aaaaaa");
+// print("aaaaaa");
 
     filterCard.clear();
 
     if(!filterVisible){
       filterCard.add(FilterStores(homecontrol,context,mapcontrol));
       filterVisible=true;
+      print("aaaaaa");
+
     }
         else{
 
       filterCard.add(Container());
                       filterVisible=false;
+                      print("bbbbbb");
+
 
     }
 

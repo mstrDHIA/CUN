@@ -116,7 +116,16 @@ mapcontrol.filterVisible=true;
           child:  mapcontrol.card[0]
           ),
         search,
-           filter
+        Positioned(
+          top: 30,
+          right: 10,
+                  child: Visibility(
+            visible: mapcontrol.filterVisible,
+            child:FilterStores(homecontrol,context,mapcontrol)
+
+          ),
+        ),
+                   filter
           ]
       );
            },
