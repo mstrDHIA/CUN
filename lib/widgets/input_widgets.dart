@@ -88,8 +88,14 @@ Widget DateInput({BuildContext context,String hint, Icon icon, TextEditingContro
 Widget Input({String hint, Icon icon, TextEditingController control,TextInputType type, bool expands}) {
   int max=1;
   int min=1;
+  double sizedHeight=30;
+  double h=300;
   if(hint=="description"){
     max=5;
+  }
+  if(hint==""){max=5;
+  sizedHeight=0;
+  h=350;
   }
   return Row(
     mainAxisSize: MainAxisSize.min,
@@ -103,11 +109,11 @@ Widget Input({String hint, Icon icon, TextEditingController control,TextInputTyp
         ),
       ),
       SizedBox(
-        width: 30,
+        width: sizedHeight,
       ),
       Expanded(
         child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
         
               child: TextFormField(
                   expands: expands,
