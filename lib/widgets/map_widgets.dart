@@ -310,11 +310,15 @@ Widget StoreMapCard(context,Store store){
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
-              AppText(
-                text: store.address,
+              Text(
+                
+                 store.address,
+                 maxLines: 2,
+                 overflow: TextOverflow.ellipsis,
+                 style:TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
-                color: Color(0xFF7C7C7C),
+                color: Color(0xFF7C7C7C),)
               ),
               SizedBox(
                 height: 10,

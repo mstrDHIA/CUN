@@ -25,7 +25,12 @@ Widget padded(Widget widget) {
 
 
   Widget CategoriesyStores(HomeController control){
-            final BannerAdListener listener = BannerAdListener(
+       
+    List<Widget> categoriesAds=[];
+    for(int i=0;i<control.categories.length;i++){
+      categoriesAds.add(CategoryStore(control, control.categories[i]));
+      if(i%2!=0){
+             final BannerAdListener listener = BannerAdListener(
  // Called when an ad is successfully received.
  onAdLoaded: (Ad ad) => print('Ad loaded.'),
  // Called when an ad request failed.
@@ -49,10 +54,6 @@ Widget padded(Widget widget) {
 );
 final AdWidget adWidget = AdWidget(ad: myBanner);
 
-    List<Widget> categoriesAds=[];
-    for(int i=0;i<control.categories.length;i++){
-      categoriesAds.add(CategoryStore(control, control.categories[i]));
-      if(i%2!=0){
         categoriesAds.add(Column(
           children: [
             SizedBox(height:20),
@@ -247,6 +248,7 @@ Widget CategoryStore(HomeController control,Category category){
         Container(
           padding: EdgeInsets.all(16),
           width: 280,
+          height: 60,
           decoration: BoxDecoration(
             color: Color(0xFFF2F3F2),
             borderRadius: BorderRadius.circular(20),

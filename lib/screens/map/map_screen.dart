@@ -117,15 +117,15 @@ mapcontrol.filterVisible=true;
           ),
         search,
         Positioned(
-          top: 30,
-          right: 10,
+          top: 90,
+          right: 16,
                   child: Visibility(
             visible: mapcontrol.filterVisible,
             child:FilterStores(homecontrol,context,mapcontrol)
 
           ),
         ),
-                   filter
+                  //  filter
           ]
       );
            },

@@ -66,7 +66,7 @@ Widget CategoryItem(int i,HomeController control,context){
   return Row(
     children: [
       SizedBox(
-            width: 15,
+            width: 5,
           ),
       FlatButton(onPressed: (){
        List<Store> foundStores= control.getStoresByCategory(categories[i][0]);
@@ -77,23 +77,24 @@ Widget CategoryItem(int i,HomeController control,context){
     );
                },
               child: Container(
-            width: 200,
-            height: 105,
-            padding: EdgeInsets.symmetric(vertical: 16, horizontal: 17),
+            width: 90,
+            height: 90,
+            padding: EdgeInsets.symmetric(vertical: 16, ),
             decoration: BoxDecoration(
                 color: categories[i][1],
                 borderRadius: BorderRadius.circular(18)),
-            child: Row(
+            child: Column(
               children: [
                 Image(
-                  image: NetworkImage(categories[i][2]),
+                  image: NetworkImage(categories[i][2],
+                  scale:2),
                 ),
                 SizedBox(
-                  width: 15,
+                  height: 5,
                 ),
                 AppText(
                   text: categories[i][0],
-                  fontSize: 20,
+                  fontSize: 12,
                   fontWeight: FontWeight.w600,
                 ),
               ],
