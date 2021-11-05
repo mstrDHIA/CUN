@@ -48,12 +48,14 @@ class CategoryFeaturedCard extends StatelessWidget {
   height: 100.0,
 
   child: new ListView.builder(
+    
         itemCount: categories.length,
         
 
     itemBuilder: (context, index){
     return CategoryItem(index,homecontrol,context);
   } ,scrollDirection: Axis.horizontal,
+  
   ),
 );
   }
@@ -63,46 +65,38 @@ class CategoryFeaturedCard extends StatelessWidget {
 
 Widget CategoryItem(int i,HomeController control,context){
   
-  return Row(
-    children: [
-      SizedBox(
-            width: 5,
-          ),
-      FlatButton(onPressed: (){
-       List<Store> foundStores= control.getStoresByCategory(categories[i][0]);
+  return FlatButton(onPressed: (){
+   List<Store> foundStores= control.getStoresByCategory(categories[i][0]);
   Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) => ExploreScreen(foundStores: foundStores,keyword: foundStores[0].category.name,)),
+  context,
+  MaterialPageRoute(
+      builder: (context) => ExploreScreen(foundStores: foundStores,keyword: foundStores[0].category.name,)),
     );
-               },
-              child: Container(
-            width: 90,
-            height: 90,
-            padding: EdgeInsets.symmetric(vertical: 16, ),
-            decoration: BoxDecoration(
-                color: categories[i][1],
-                borderRadius: BorderRadius.circular(18)),
-            child: Column(
-              children: [
-                Image(
-                  image: NetworkImage(categories[i][2],
-                  scale:2),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                AppText(
-                  text: categories[i][0],
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                ),
-              ],
+           },
+          child: Container(
+        width: 90,
+        height: 90,
+        padding: EdgeInsets.symmetric(vertical: 16, ),
+        decoration: BoxDecoration(
+            color: categories[i][1],
+            borderRadius: BorderRadius.circular(18)),
+        child: Column(
+          children: [
+            Image(
+              image: NetworkImage(categories[i][2],
+              scale:2),
             ),
-          ),
+            SizedBox(
+              height: 5,
+            ),
+            AppText(
+              text: categories[i][0],
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+            ),
+          ],
+        ),
       ),
-         
-    ],
   );
   }
 

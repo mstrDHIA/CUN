@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,6 +16,7 @@ import 'package:grocery_app/styles/colors.dart';
 import 'package:grocery_app/widgets/edit_store_widgets.dart';
 import 'package:grocery_app/widgets/item_counter_widget.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:photo_view/photo_view.dart';
 //import 'package:grocery_app/widgets/store_details_widgets.dart';
 
 //import 'favourite_toggle_icon_widget.dart';
@@ -212,7 +214,7 @@ SizedBox(
                                 ),
                                     Phone(store,phonecontrol),
                                 Socials(store,socialcontrol),
-                               
+                               ImageSlide(store:store,context:context)
                               ],
                             ),
                           ),
@@ -477,6 +479,106 @@ Container(
       ],
     );
   }
+
+
+Widget ImageSlide({Store store,context}){
+     List<Widget> images=[];
+     List<Widget> imagesNatural=[];
+     double h=300;
+     double w=400;
+     for(int i=0;i<store.images.length;i++){
+        imagesNatural.add(PhotoView(
+          
+                  imageProvider: NetworkImage(store.images[i],
+          // height: 600,
+          scale: 0.6,
+          // width: 700,
+          ),
+        ));
+
+       images.add(Container(
+         height: 300,
+         width: 400,
+         constraints: BoxConstraints(
+           maxHeight:300,
+           maxWidth: 400
+         ),
+         child: InkWell(
+           onTap:() {
+             showDialog(context: context, builder: (context)=>SimpleDialog(
+               
+                      backgroundColor: Colors.transparent,
+                      insetPadding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
+                      titlePadding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
+
+               children: [
+                 Stack(
+                  //  alignment: Alignment.center,
+                   children:[
+                      Padding(
+                        padding: const EdgeInsets.all(24.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.black87,
+
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20)
+                            )
+                          ),
+                          height: 500,
+                          child: Center(
+                            child: Container(
+                              constraints: BoxConstraints(maxWidth: 500),
+                              child: Image.network(store.images[i],
+                              fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        top: 0,
+                        right:20,
+                        child: FloatingActionButton(
+                        onPressed: () { 
+
+                         },
+                         child: Icon(Icons.delete),
+                        )
+                        )
+                      
+                 ])
+               
+    
+                 ],
+             ));},
+           child: Image.network(store.images[i],
+           height: h,
+           width: w,
+           )
+           ),
+       )
+         );
+     }
+      return CarouselSlider(
+        items: images,
+
+         options: CarouselOptions(
+            viewportFraction: 0.6,
+            
+          //  aspectRatio: 2,
+          //  height: 300,
+           initialPage: 0,
+           autoPlay: true,
+           autoPlayAnimationDuration: Duration(seconds: 1),
+           pauseAutoPlayOnTouch: true,
+           enlargeCenterPage: true,
+           enableInfiniteScroll: false,
+
+
+           ),);
+    }
 
   // double getTotalPrice() {
   //   return amount * store.price;
